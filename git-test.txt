@@ -1,2 +1,0 @@
-"Getting Git is legit."
-Another line
