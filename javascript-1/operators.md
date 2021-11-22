@@ -1,4 +1,8 @@
-# For each of the following code blocks, read the expression and predict what the result of evaluating it would be, then execute the expression in the Chrome console.
+# Operators Exercise
+
+## For each of the following code blocks, read the expression and predict what the result of evaluating it would be, then execute the expression in the Chrome console.
+
+&nbsp;
 
 '1' + 2
 
