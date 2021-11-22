@@ -1,4 +1,6 @@
-// 1. For each of the following code blocks, read the code and predict what the result of evaluating it would be, then execute the statement(s) in the Chrome console.
+// 1. For each of the following code blocks, read the code and 
+//    predict what the result of evaluating it would be, 
+//    then execute the statement(s) in the Chrome console.
 
 console.log("------- EXERCISE 1 -------");
 console.log(" ");
@@ -136,7 +138,7 @@ let rent = 3;
 let total = (mermaid + bear + hercules) * rent;
 console.log("Total movie rent: $" + total);
 
-// 3.2. Suppose you're working as a contractor for 3 companies: Google, Amazon and Facebook, 
+// 3.2 Suppose you're working as a contractor for 3 companies: Google, Amazon and Facebook, 
 // they pay you a different rate per hour. Google pays $400, Amazon $380, and Facebook $350. 
 // How much will you receive in payment for this week? You worked 10 hours for Facebook, 
 // 6 hours for Google and 4 hours for Amazon.
@@ -152,14 +154,14 @@ let facebookPay = facebookRate * 10;
 let totalPay = googlePay + amazonPay + facebookPay;
 console.log("Total pay is: $" + totalPay);
 
-// 3.3. A student can be enrolled in a class only if the class is not full 
+// 3.3 A student can be enrolled in a class only if the class is not full 
 // and the class schedule does not conflict with her current schedule.
 
 let classNotFull = true;
 let noConflict = true;
 let canEnroll = classNotFull && noConflict;
 
-// 3.4. A product offer can be applied only if a person buys more than 2 items, 
+// 3.4 A product offer can be applied only if a person buys more than 2 items, 
 // and the offer has not expired. Premium members do not need to buy a specific amount of products.
 
 let numberInCart = 1;
@@ -169,7 +171,7 @@ let applyPromo = false;
 
 if(isPremium && !promoExpired){
     applyPromo = true;
-} else if (promoExpired && numberInCart > 2){
+} else if (!promoExpired && numberInCart > 2){
     applyPromo = true;
 } else {
     applyPromo = false;
