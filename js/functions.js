@@ -83,6 +83,7 @@ console.log(calculateTip(0.20, 20));
 console.log(calculateTip(0.25, 25.50));
 console.log(calculateTip(0.15, 33.42));
 
+
 /**
  * TODO:
  * Use prompt and alert in combination with your calculateTip function to
@@ -110,7 +111,7 @@ alert("Tip Amount:  $" + calculateTip(desiredTip, currentBill).toFixed(2));
  */
 
 function applyDiscount(originalPrice, discountPercent){
-    return originalPrice -= originalPrice * discountPercent;
+    return originalPrice - (originalPrice * discountPercent);
 }
 
 // TEST CASES
