@@ -49,38 +49,38 @@ console.log(" ");
 
 // 1.6
 console.log("Question 1.6");
-console.log("Is 0 NaN?: " + isNaN(0));
-console.log("Is 1 NaN?: " + isNaN(1));
-console.log("Is \"\" NaN?: " + isNaN(""));
-console.log("Is \"string\" NaN: " + isNaN("string"));
-console.log("Is \"0\" NaN: " + isNaN("0"));
-console.log("Is \"1\": " + isNaN("1"));
-console.log("Is \"3.145\": " + isNaN("3.145"));
-console.log("Is Number.MAX_VALUE NaN: " + isNaN(Number.MAX_VALUE));
-console.log("Is Infinity NaN: " + isNaN(Infinity));
-console.log("Is \"true\": " + isNaN("true"));
-console.log("Is true NaN: " + isNaN(true));
-console.log("Is \"false\" NaN: " + isNaN("false"));
-console.log("Is false NaN: " + isNaN(false));
+console.log("Is 0 NaN?: " + isNaN(0));  // false
+console.log("Is 1 NaN?: " + isNaN(1));  // false
+console.log("Is \"\" NaN?: " + isNaN(""));  // false
+console.log("Is \"string\" NaN: " + isNaN("string"));  // true
+console.log("Is \"0\" NaN: " + isNaN("0"));  // false
+console.log("Is \"1\": " + isNaN("1")); // false
+console.log("Is \"3.145\": " + isNaN("3.145")); // false
+console.log("Is Number.MAX_VALUE NaN: " + isNaN(Number.MAX_VALUE)); // false
+console.log("Is Infinity NaN: " + isNaN(Infinity)); // false
+console.log("Is \"true\": " + isNaN("true")); // true
+console.log("Is true NaN: " + isNaN(true)); // false
+console.log("Is \"false\" NaN: " + isNaN("false")); // true
+console.log("Is false NaN: " + isNaN(false)); // false
 console.log("Is NaN == NaN: " + (NaN == NaN));  // to illustrate why the isNaN() function is needed:
 console.log(" ");
 
 // 1.7
-console.log("Question 1.7");
-console.log("!true ---> " + !true);
-console.log("!false ---> " + !false);
-console.log("!!true ---> " + !!true);
-console.log("!!false ---> " + !!false);
-console.log("!!0 ---> " + !!0);
-console.log("!!-0 ---> " + !!-0);
-console.log("!!1 ---> " + !!1);
-console.log("!!-1 ---> " + !!-1);
-console.log("!!0.1 ---> " + !!0.1);
-console.log("!!\"hello\" ---> " + !!"hello");
-console.log("!!\"\" ---> " + !!"");
-console.log("!!\'\' ---> " + !!'');
-console.log("!!\"false\" ---> " + !!"false");
-console.log("!!\"0\" ---> " + !!"0");
+console.log("Question 1.7");  
+console.log("!true ---> " + !true);  // false
+console.log("!false ---> " + !false); // true
+console.log("!!true ---> " + !!true); // true
+console.log("!!false ---> " + !!false); // false
+console.log("!!0 ---> " + !!0);  // false
+console.log("!!-0 ---> " + !!-0); // false
+console.log("!!1 ---> " + !!1); // true
+console.log("!!-1 ---> " + !!-1); // false??  (it's actually true lol)
+console.log("!!0.1 ---> " + !!0.1); // true
+console.log("!!\"hello\" ---> " + !!"hello"); // true
+console.log("!!\"\" ---> " + !!""); // false
+console.log("!!\'\' ---> " + !!''); // false
+console.log("!!\"false\" ---> " + !!"false"); // true
+console.log("!!\"0\" ---> " + !!"0"); // true
 
 // 2. Execute the following statement in the Chrome JavaScript console 
 // and then follow the directions below.
@@ -96,16 +96,16 @@ console.log(sample);
 console.log("Sample length is: " + sample.length);
 
 // 2.2 Try to make the sample string all upper or all lower case.
-console.log(sample.toUpperCase());
-console.log(sample.toLowerCase());
+console.log("To upper: " + sample.toUpperCase());
+console.log("To lower: " + sample.toLowerCase());
 
 // 2.3 Update the variable sample via concatenation so that it contains "Hello Codeup Students".
 sample += " Students";
-console.log(sample)
+console.log("Original: " + sample)
 
 // 2.4 Replace "Students" with "Class".
 sample = sample.replace("Students", "Class");
-console.log(sample);
+console.log("After replacing: " + sample);
 
 // 2.5 Find the index of "c" using .indexOf(). What do you observe?
 console.log("Index of \"c\": " + sample.indexOf("c"));
@@ -131,11 +131,11 @@ console.log(" ");
 // and Hercules (1 day, you don't know yet if they're going to like it). 
 // If price for a movie per day is $3, how much will you have to pay?
 
-let mermaid = 3;
-let bear = 5;
-let hercules = 1;
-let rent = 3;
-let total = (mermaid + bear + hercules) * rent;
+let mermaidDays = 3;
+let bearDays = 5;
+let herculesDays = 1;
+let rentRate = 3;
+let total = (mermaidDays + bearDays + herculesDays) * rentRate;
 console.log("Total movie rent: $" + total);
 
 // 3.2 Suppose you're working as a contractor for 3 companies: Google, Amazon and Facebook, 

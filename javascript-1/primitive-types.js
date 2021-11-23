@@ -1,12 +1,12 @@
 // Identify the data type of the following values:
 
-console.log(typeof 99.9);
-console.log(typeof "false");
-console.log(typeof false);
-console.log(typeof '0');
-console.log(typeof 0);
-console.log(typeof true);
-console.log(typeof 'true');
+console.log(typeof 99.9);  // number
+console.log(typeof "false");  // string
+console.log(typeof false);  // boolean
+console.log(typeof '0');  // string
+console.log(typeof 0);  // number
+console.log(typeof true); // boolean
+console.log(typeof 'true'); // string
 
 // What data type would best represent:
 
