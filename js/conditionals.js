@@ -101,8 +101,8 @@ function analyzeColor(color){
  * function to show it to the user.
  */
 
-// let userColor = prompt("Pick a color");
-// alert(analyzeColor(userColor));
+let userColor = prompt("Pick a color");
+alert(analyzeColor(userColor));
 
 
 /* ########################################################################## */
@@ -173,11 +173,11 @@ console.log(`Random number of ${random} and original price of ${price}: $${calcu
  * price before the discount was, and what their price after the discount is.
  */
 // Generate a random number between 0 and 5
-// var luckyNumber = Math.floor(Math.random() * 6);
+var luckyNumber = Math.floor(Math.random() * 6);
 
-// let totalBill = prompt("Enter total bill: ");
-// let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nDiscount applied: $${calculateTotal(luckyNumber, totalBill)}`);
-// alert(message);
+let totalBill = prompt("Enter total bill: ");
+let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nDiscount applied: $${calculateTotal(luckyNumber, totalBill)}`);
+alert(message);
 
 /**
  * TODO:
