@@ -30,7 +30,6 @@
 var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
 var randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-
 // function analyzeColor(color){
 //     if(color === "red"){
 //         return `${color} is color # ${colors.indexOf(color) + 1} of the rainbow`;
@@ -93,7 +92,6 @@ function analyzeColor(color){
     }
 }
 
-
 /**
  * TODO:
  * Prompt the user for a color when the page loads, and pass the input from the
@@ -103,7 +101,6 @@ function analyzeColor(color){
 
 let userColor = prompt("Pick a color");
 alert(analyzeColor(userColor));
-
 
 /* ########################################################################## */
 
@@ -173,10 +170,10 @@ console.log(`Random number of ${random} and original price of ${price}: $${calcu
  * price before the discount was, and what their price after the discount is.
  */
 // Generate a random number between 0 and 5
-var luckyNumber = Math.floor(Math.random() * 6);
+let luckyNumber = Math.floor(Math.random() * 6);
 
 let totalBill = prompt("Enter total bill: ");
-let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nDiscount applied: $${calculateTotal(luckyNumber, totalBill)}`);
+let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nBill with discount applied: $${calculateTotal(luckyNumber, totalBill)}`);
 alert(message);
 
 /**
