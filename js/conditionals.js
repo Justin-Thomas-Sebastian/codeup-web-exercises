@@ -7,7 +7,7 @@
  * Create a function named `analyzeColor` that accepts a string that is a color
  * name as input. This function should return a message which relates to the
  * color stated in the argument of the function. For colors you do not have
- * responses written for, return a string stating so        
+ * responses written for, return a string stating so    
  *
  * Example:
  *  > analyzeColor('blue') // returns "blue is the color of the sky"
