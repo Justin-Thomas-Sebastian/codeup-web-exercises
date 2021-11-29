@@ -7,7 +7,7 @@
  * Create a function named `analyzeColor` that accepts a string that is a color
  * name as input. This function should return a message which relates to the
  * color stated in the argument of the function. For colors you do not have
- * responses written for, return a string stating so
+ * responses written for, return a string stating so        
  *
  * Example:
  *  > analyzeColor('blue') // returns "blue is the color of the sky"
@@ -204,6 +204,7 @@ alert(message);
      alert("Exiting...");
  }
 
+ // Validates input as a number. Calls other helper functions.
 function displayNumberInfo(userInputStr){
     let userInputNum = Number(userInputStr);
     if(isNaN(userInputNum)){
@@ -215,6 +216,7 @@ function displayNumberInfo(userInputStr){
     checkPosNeg(userInputNum);
 }
 
+// Checks if number is odd/even then displays the result in an alert window
 function checkEvenOdd(userInputNum){
     if(userInputNum % 2 === 0){
         alert("Number is even. ");
@@ -223,11 +225,13 @@ function checkEvenOdd(userInputNum){
     }
 }
 
+// Adds 100 to input number then displays the result in an alert window
 function add100(userInputNum){
     let addedNumber = parseInt(userInputNum) + 100
     alert("Your number + 100 is: " + addedNumber);
 }
 
+// Checks if number is negative/positive then displays the result in an alert window
 function checkPosNeg(userInputNum){
     if(userInputNum >= 0){
         alert("Number is positive");
