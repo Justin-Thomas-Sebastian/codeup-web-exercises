@@ -101,8 +101,8 @@ function analyzeColor(color){
  * function to show it to the user.
  */
 
-let userColor = prompt("Pick a color");
-alert(analyzeColor(userColor));
+// let userColor = prompt("Pick a color");
+// alert(analyzeColor(userColor));
 
 
 /* ########################################################################## */
@@ -127,6 +127,43 @@ alert(analyzeColor(userColor));
  * return value.
  */
 
+ let random = Math.floor(Math.random() * 6);
+
+ function calculateTotal(luckyNumber, originalPrice){
+    
+    switch(luckyNumber){
+        case 0:
+            return originalPrice;
+        case 1:
+            return originalPrice - (originalPrice * .10);
+        case 2:
+            return originalPrice - (originalPrice * .25);
+        case 3:
+            return originalPrice - (originalPrice * .35);
+        case 4:
+            return originalPrice - (originalPrice * .50);
+        case 5:
+            return 0;
+    }
+}
+
+// TEST CASES
+console.log(" ");
+console.log("Testing calculateTotal() with plugged in lucky numbers...");
+console.log(calculateTotal(0, 100));
+console.log(calculateTotal(1, 100));
+console.log(calculateTotal(2, 100));
+console.log(calculateTotal(3, 100));
+console.log(calculateTotal(4, 100));
+console.log(calculateTotal(5, 100));
+
+// TESTING RANDOM
+console.log(" ");
+console.log("Testing calculateTotal() with random lucky number...");
+let price = 100;
+console.log(`Random number of ${random} and original price of ${price}: $${calculateTotal(random, price)}`);
+
+
 /**
  * TODO:
  * Uncomment the line below to generate a random number between 0 and 5.
@@ -135,8 +172,12 @@ alert(analyzeColor(userColor));
  * and alerts to display to the user what their lucky number was, what their
  * price before the discount was, and what their price after the discount is.
  */
-// Generate a random number between 0 and 6
+// Generate a random number between 0 and 5
 // var luckyNumber = Math.floor(Math.random() * 6);
+
+// let totalBill = prompt("Enter total bill: ");
+// let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nDiscount applied: $${calculateTotal(luckyNumber, totalBill)}`);
+// alert(message);
 
 /**
  * TODO:
@@ -156,3 +197,44 @@ alert(analyzeColor(userColor));
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
+
+ let userConfirm = confirm("Would you like to enter a number?");
+ 
+ if(userConfirm){
+    let userInputStr = prompt("Enter a number");
+    displayNumberInfo(userInputStr);
+ } else {
+     alert("Exiting...");
+ }
+
+function displayNumberInfo(userInputStr){
+    let userInputNum = Number(userInputStr);
+    if(isNaN(userInputNum)){
+        alert("Incorrect data type. Enter a number. "); // incorrect data type. exit.
+        return;
+    }
+    checkEvenOdd(userInputNum);
+    add100(userInputNum);
+    checkPosNeg(userInputNum);
+}
+
+function checkEvenOdd(userInputNum){
+    if(userInputNum % 2 === 0){
+        alert("Number is even. ");
+    } else {
+        alert("Number is odd");
+    }
+}
+
+function add100(userInputNum){
+    let addedNumber = parseInt(userInputNum) + 100
+    alert("Your number + 100 is: " + addedNumber);
+}
+
+function checkPosNeg(userInputNum){
+    if(userInputNum >= 0){
+        alert("Number is positive");
+    } else {
+        alert("Number is negative");
+    }
+}
