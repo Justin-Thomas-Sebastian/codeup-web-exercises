@@ -50,7 +50,7 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
 //     }
 // }
 
-// TESTING CASES
+// TEST CASES
 console.log("Testing analyzeColor()...");
 for(let color of colors){
     console.log(analyzeColor(color));
@@ -173,7 +173,9 @@ console.log(`Random number of ${random} and original price of ${price}: $${calcu
 let luckyNumber = Math.floor(Math.random() * 6);
 
 let totalBill = prompt("Enter total bill: ");
-let message = (`Your lucky number is: ${luckyNumber}\nOriginal bill: $${totalBill}\nBill with discount applied: $${calculateTotal(luckyNumber, totalBill)}`);
+let message = (`Your lucky number is: ${luckyNumber}\n
+Original bill: $${totalBill}\n
+Bill with discount applied: $${(calculateTotal(luckyNumber, totalBill)).toFixed(2)}`);
 alert(message);
 
 /**
@@ -197,16 +199,16 @@ alert(message);
 
  let userConfirm = confirm("Would you like to enter a number?");
  
- if(userConfirm){
+ if(userConfirm){  // if user clicks 'OK'
     let userInputStr = prompt("Enter a number");
     displayNumberInfo(userInputStr);
- } else {
+ } else { // is user clicks 'Cancel'
      alert("Exiting...");
  }
 
  // Validates input as a number. Calls other helper functions.
 function displayNumberInfo(userInputStr){
-    let userInputNum = Number(userInputStr);
+    let userInputNum = Number(userInputStr); // cast to Number type 
     if(isNaN(userInputNum)){
         alert("Incorrect data type. Enter a number. "); // incorrect data type. exit.
         return;
@@ -218,24 +220,22 @@ function displayNumberInfo(userInputStr){
 
 // Checks if number is odd/even then displays the result in an alert window
 function checkEvenOdd(userInputNum){
-    if(userInputNum % 2 === 0){
-        alert("Number is even. ");
-    } else {
-        alert("Number is odd");
-    }
+    userInputNum % 2 === 0 ? alert("Number is even.") : alert("Number is odd.");
 }
 
 // Adds 100 to input number then displays the result in an alert window
 function add100(userInputNum){
-    let addedNumber = parseInt(userInputNum) + 100
-    alert("Your number + 100 is: " + addedNumber);
+    let sum = userInputNum + 100;
+    alert("Your number plus 100 is: " + sum);
 }
 
 // Checks if number is negative/positive then displays the result in an alert window
 function checkPosNeg(userInputNum){
-    if(userInputNum >= 0){
+    if(userInputNum > 0){
         alert("Number is positive");
-    } else {
+    } else if(userInputNum < 0 ){
         alert("Number is negative");
+    } else if (userInputNum === 0){
+        alert("Number is zero");
     }
 }
