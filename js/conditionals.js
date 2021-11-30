@@ -175,7 +175,7 @@ let luckyNumber = Math.floor(Math.random() * 6);
 let totalBill = prompt("Enter total bill: ");
 let message = (`Your lucky number is: ${luckyNumber}\n
 Original bill: $${totalBill}\n
-Bill with discount applied: $${(calculateTotal(luckyNumber, totalBill))}`);
+Bill with discount applied: $${calculateTotal(luckyNumber, totalBill)}`);
 alert(message);
 
 /**
