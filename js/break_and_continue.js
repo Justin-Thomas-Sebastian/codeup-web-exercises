@@ -5,7 +5,9 @@ function checkOdd(num){
 let userOddNum = "";
 while(true){
     userOddNum = prompt("Enter odd number");
-    if(checkOdd(userOddNum)){
+    if(isNaN(userOddNum)){
+        alert("Invalid input. Enter odd number");
+    } else if(checkOdd(userOddNum)){
         break;
     } else {
         alert("Invalid input. Enter odd number");
