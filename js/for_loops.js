@@ -14,7 +14,7 @@ function generateRandom(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function checkEvenOdd(num){
+function returnEvenOdd(num){
     if(num % 2 === 0){
         return "even";
     } else {
@@ -24,7 +24,7 @@ function checkEvenOdd(num){
 
 for(let i = 0; i < 10; i++){
     let random = generateRandom(20,200);
-    console.log(`${random} is ${checkEvenOdd(random)}`);
+    console.log(`${random} is ${returnEvenOdd(random)}`);
 }
 
 console.log(" ");
