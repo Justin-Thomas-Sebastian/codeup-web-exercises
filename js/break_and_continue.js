@@ -7,13 +7,13 @@ function checkOdd(num){
 
 let userOddNum = "";
 while(true){
-    userOddNum = prompt("Enter odd number");
+    userOddNum = prompt("Enter odd number between 1 and 50.");
     if(isNaN(userOddNum)){
-        alert("Invalid input. Enter odd number");
-    } else if(checkOdd(userOddNum)){
+        alert("Invalid input. Enter odd number between 1 and 50.");
+    } else if(checkOdd(userOddNum) && (userOddNum >= 1 && userOddNum < 50)){
         break;
     } else {
-        alert("Invalid input. Enter odd number");
+        alert("Invalid input. Enter odd number between 1 and 50.");
     }
 }
 
