@@ -1,5 +1,6 @@
 "use strict";
 
+// DOM ELEMENTS
 const planetsParagraph = document.getElementById("planets");
 const planetsList = document.getElementById("planets-list-container");
 
@@ -20,12 +21,11 @@ console.log(planetsArray);
  * TODO:
  * Create a string with <br> tags between each planet. console.log() your
  * results. Why might this be useful?
- *
  */
 
 let planetsToHTML = (planetsArray.join("<br>"));
 console.log(planetsToHTML);
-planetsParagraph.innerHTML = planetsToHTML;
+planetsParagraph.innerHTML = planetsToHTML;  // Add to HTML file
 
  /* BONUS:
  * Create another string that would display your planets in an undordered
@@ -34,4 +34,5 @@ planetsParagraph.innerHTML = planetsToHTML;
  */
 
 let planetsToList = "<ul><li>" + planetsArray.join("</li><li>") + "</li></ul>";
-planetsList.innerHTML = planetsToList;
+console.log(planetsToList);
+planetsList.innerHTML = planetsToList;  // Add to HTML file
