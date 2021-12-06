@@ -28,12 +28,13 @@
      * > console.log(person.sayHello()) // "Hello from Rick Sanchez!"
      */
 
-    person.sayHello = function(){
-      return "Hello from " + this.firstName + " " + this.lastName + "!";
+    person.sayHello = function () {
+        return "Hello from " + this.firstName + " " + this.lastName + "!";
     };
 
     console.log(person.sayHello());
 
+    console.log(" ");
     /** TODO:
      * HEB has an offer for the shoppers that buy products amounting to
      * more than $200. If a shopper spends more than $200, they get a 12%
@@ -54,16 +55,16 @@
         {name: 'George', amount: 320}
     ];
 
-    function checkDiscount(shopper){
+    function checkDiscount(shopper) {
         let discount = 0;
-        if(shopper.amount > 200){
+        if (shopper.amount > 200) {
             discount = shopper.amount * .12;
         }
         let total = shopper.amount - discount;
         return `Name: ${shopper.name} \nCurrent Amount: $${shopper.amount} \nDiscount: $${discount} \nAfter: $${total}\n`;
     }
 
-    shoppers.forEach(function(shopper){
+    shoppers.forEach(function (shopper) {
         console.log(checkDiscount(shopper));
     });
 
@@ -80,43 +81,43 @@
      * > console.log(books[0].author.lastName) // "Adams"
      */
 
-    let books = [
-        {
-            title: "Cracking the Coding Interview",
-            author: {
-                firstName: "Gayle",
-                lastName: "McDowell"
-            }
-        },
-        {
-            title: "Foundation",
-            author: {
-                firstName: "Isaac",
-                lastName: "Asimov"
-            }
-        },
-        {
-            title: "Game of Thrones",
-            author: {
-                firstName: "George",
-                lastName: "Martin"
-            }
-        },
-        {
-            title: "Chamber of Secrets",
-            author: {
-                firstName: "J.K.",
-                lastName: "Rowling"
-            }
-        },
-        {
-            title: "Wheel of Time",
-            author: {
-                firstName: "Robert",
-                lastName: "Jordan"
-            }
-        }
-    ];
+    // let books = [
+    //     {
+    //         title: "Cracking the Coding Interview",
+    //         author: {
+    //             firstName: "Gayle",
+    //             lastName: "McDowell"
+    //         }
+    //     },
+    //     {
+    //         title: "Foundation",
+    //         author: {
+    //             firstName: "Isaac",
+    //             lastName: "Asimov"
+    //         }
+    //     },
+    //     {
+    //         title: "Game of Thrones",
+    //         author: {
+    //             firstName: "George",
+    //             lastName: "Martin"
+    //         }
+    //     },
+    //     {
+    //         title: "Chamber of Secrets",
+    //         author: {
+    //             firstName: "J.K.",
+    //             lastName: "Rowling"
+    //         }
+    //     },
+    //     {
+    //         title: "Wheel of Time",
+    //         author: {
+    //             firstName: "Robert",
+    //             lastName: "Jordan"
+    //         }
+    //     }
+    // ];
 
     /**
      * TODO:
@@ -143,10 +144,10 @@
      *      ...
      */
 
-    books.forEach(function(book){
-        console.log(`Book # ${books.indexOf(book) + 1} \nTitle: ${book.title} \nAuthor: ${book.author.firstName} ${book.author.lastName}`);
-        console.log("---");
-    });
+    // books.forEach(function(book){
+    //     console.log(`Book # ${books.indexOf(book) + 1} \nTitle: ${book.title} \nAuthor: ${book.author.firstName} ${book.author.lastName}`);
+    //     console.log("---");
+    // });
 
     /**
      * Bonus:
@@ -159,4 +160,30 @@
      *   `showBookInfo` function.
      */
 
+    function createBook(inputTitle, fName, lName) {
+        return {
+            title: inputTitle,
+            author: {
+                firstName: fName,
+                lastName: lName
+            }
+        }
+    }
+
+    function showBookInfo(book) {
+        return `Title: ${book.title} \nAuthor: ${book.author.firstName} ${book.author.lastName} \n---`
+    }
+
+    let booksTwo = [
+        createBook("Elantris", "Brandon", "Sanderson"),
+        createBook("Prisoner of Azkaban", "J.K.", "Rowling"),
+        createBook("Mistborn", "Brandon", "Sanderson"),
+        createBook("Hyperion", "Dan", "Simmons"),
+        createBook("Revival", "Stephen", "King"),
+    ];
+
+    booksTwo.forEach(function (book) {
+        console.log(`Book # ${booksTwo.indexOf(book) + 1}`);
+        console.log(showBookInfo(book));
+    });
 })();
