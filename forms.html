@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms Exercise</title>
+</head>
+<body>
+
+    <h2>Register With Us</h2>
+    <form method="POST" action="https://request-inspector.glitch.me/">
+
+        <!-- USERNAME -->
+        <label for="username">Username:&nbsp;</label>
+        <input type="text" name="username" id="username"><br>
+
+        <!-- EMAIL -->
+        <label for="useremail">Email:&nbsp;</label>
+        <input type="email" id="useremail" name="useremail" placeholder="user@domain.com"><br>
+
+        <!-- INITIAL PASSWORD-->
+        <label for="user-password">Password:&nbsp;</label>
+        <input type="password" name="user-password" id="user-password" placeholder="Enter password"><br>
+
+        <!-- CONFIRM PASSWORD-->
+        <label for="confirm-password">Password:&nbsp;</label>
+        <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter password"><br><br>
+
+        <!-- BIO -->
+        <label for="bio">Bio:</label><br>
+        <textarea name="bio" id="bio" rows="20" cols="50"></textarea><br>
+
+        <!-- SURVEY  -->
+        <h3>How did you hear about us?</h3>
+        <label for="billboard">Billboard</label>
+        <input type="radio" name="survey" id="billboard" value="billboard"><br>
+
+        <label for="radio-ad">Radio Advertisement</label>
+        <input type="radio" name="survey" id="radio-ad" value="radio-ad"><br>
+
+        <label for="internet-ad">Internet Advertisement</label>
+        <input type="radio" name="survey" id="internet-ad" value="internet-ad"><br>
+
+        <label for="other">Other</label>
+        <input type="radio" name="survey" id="other" value="other"><br>
+
+        <!-- BROWSER CHOICE-->
+        <label for="browser-choice">Which browser are you using?</label>
+        <select name="browser-choice" id="browser-choice">
+            <option value="Chrome">Chrome</option>
+            <option value="Edge">Edge</option>
+            <option value="Firefox">Firefox</option>
+            <option value="Other">Other</option>
+        </select><br>
+        <input type="submit" value="Sign-Up">
+    </form>
+
+<!--    Create a "How did you hear about us" section that contains radio buttons. -->
+<!--    The values should be "billboard", "radio advertisement", "internet advertisement", and "other". -->
+<!--    Only one of the values should be allowed to be selected at a time.-->
+
+<!--    What happens if the inputs are given different name attributes?-->
+<!--    Change these inputs so that multiple answers are allowed to be selected.-->
+<!--    Create a dropdown that asks the user what web browser they are using.-->
+
+</body>
+</html>
