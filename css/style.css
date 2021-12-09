@@ -1,3 +1,131 @@
-.fancy-header {
-    color: purple;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
+
+body {
+    background-color: #101010;
+    color: lightgray;
+    font-family: Monaco;
+}
+
+header {
+    margin: 30px 30px;
+}
+
+.fancy-header {
+    color: lightseagreen;
+    text-align: center;
+}
+
+.background-image {
+    height: 700px;
+    width: 100%;
+    background-image:  url("../assets/welcome-background.jpg");
+    background-size: cover;
+}
+
+header p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#main-container {
+    width: 700px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 50px;
+}
+
+#main-container ul,ol {
+    list-style-type: none;
+}
+
+#main-container ul li,ol li {
+    margin-bottom: 30px;
+}
+
+#main-container h2 {
+    padding: 50px 50px;
+    color: lightseagreen;
+}
+
+#vision-container {
+    color: lightseagreen;
+    height: 730px;
+    padding: 70px;
+    background-color: white;
+}
+
+#vision-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#photos-container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+#photos-container p {
+    color: black;
+}
+
+#products-container {
+    height: 650px;
+    padding: 100px 100px;
+}
+
+#products-table h2 {
+    text-align: center;
+}
+
+#products-table table {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+}
+
+#products-table table th{
+    border : white solid 1px;
+    padding: 30px 70px;
+    color: lightseagreen;
+}
+
+#products-table table td {
+    border : white solid 1px;
+    padding: 30px 70px;
+}
+
+#products-table table tr:hover {
+    border : white solid 1px;
+    padding: 30px 70px;
+    background-color: whitesmoke;
+    color: black;
+}
+
+#products-table p{
+    text-align: center;
+}
+
+footer {
+    height: 100px;
+    text-align: center;
+    padding-top: 40px;
+    background-color: lightseagreen;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
