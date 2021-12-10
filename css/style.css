@@ -7,7 +7,7 @@
 body {
     background-color: #101010;
     color: lightgray;
-    font-family: Monaco;
+    font-family: Monaco,Consolas,Lucida Console,monospace;
 }
 
 header {
@@ -32,23 +32,61 @@ header p {
 }
 
 #main-container {
-    width: 700px;
+    width: 1200px;
     text-align: center;
     margin: auto;
     padding-bottom: 50px;
 }
 
 #main-container ul,ol {
-    list-style-type: none;
+    list-style-type: square;
 }
 
 #main-container ul li,ol li {
     margin-bottom: 30px;
+    text-align: left;
 }
 
 #main-container h2 {
     padding: 50px 50px;
     color: lightseagreen;
+    text-decoration: underline;
+}
+
+#main-container p {
+    margin-bottom: 50px;
+}
+
+.main-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px auto;
+    width: 800px;
+}
+
+#card-photo1 {
+    height: 300px;
+    width: 320px;
+    background-image: url("../assets/handshake.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#card-photo2 {
+    height: 305px;
+    width: 320px;
+    background-image: url("../assets/working.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#card-photo3 {
+    height: 310px;
+    width: 320px;
+    background-image: url("../assets/stats.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #vision-container {
