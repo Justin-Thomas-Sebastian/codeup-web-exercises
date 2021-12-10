@@ -40,6 +40,7 @@ header p {
 
 #main-container ul,ol {
     list-style-type: square;
+    font-size: 18px;
 }
 
 #main-container ul li,ol li {
@@ -121,7 +122,6 @@ header p {
 
 #products-table table {
     margin-top: 50px;
-    margin-left: 100px;
     margin-bottom: 50px;
 }
 
@@ -129,6 +129,14 @@ header p {
     border : white solid 1px;
     padding: 30px 70px;
     color: lightseagreen;
+}
+
+#products-table table th:nth-child(1){
+    border-top-left-radius: 50px;
+}
+
+#products-table table th:nth-child(3){
+    border-top-right-radius: 50px;
 }
 
 #products-table table td {
@@ -143,8 +151,28 @@ header p {
     color: black;
 }
 
+#products-table table tr:nth-child(1):hover {
+    background-color: #101010;
+}
+
+#table-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 #products-table p{
     text-align: center;
+    margin-top: 15px;
+}
+
+#products-photo {
+    width: 827px;
+    height: 342px;
+    background-image: url("../assets/dish.jpg");
+    background-size: cover;
+    border-radius: 10px;
 }
 
 footer {
@@ -153,17 +181,3 @@ footer {
     padding-top: 40px;
     background-color: lightseagreen;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
