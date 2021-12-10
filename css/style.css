@@ -1,3 +1,4 @@
+/* Global styles. Reset margin and padding */
 * {
     box-sizing: border-box;
     padding: 0;
@@ -10,6 +11,7 @@ body {
     font-family: Monaco,Consolas,Lucida Console,monospace;
 }
 
+/* HEADER SECTION*/
 header {
     margin: 30px 30px;
 }
@@ -31,6 +33,7 @@ header p {
     margin-top: 10px;
 }
 
+/* MAIN */
 #main-container {
     width: 1200px;
     text-align: center;
@@ -90,6 +93,7 @@ header p {
     background-size: cover;
 }
 
+/* COMPANY VISION SECTION */
 #vision-container {
     color: lightseagreen;
     height: 730px;
@@ -111,6 +115,7 @@ header p {
     color: black;
 }
 
+/* PRODUCTS SECTION*/
 #products-container {
     height: 650px;
     padding: 100px 100px;
@@ -169,15 +174,32 @@ header p {
 
 #products-photo {
     width: 827px;
-    height: 342px;
+    height: 400px;
     background-image: url("../assets/dish.jpg");
     background-size: cover;
     border-radius: 10px;
 }
 
+/* FOOTER */
 footer {
     height: 100px;
     text-align: center;
     padding-top: 40px;
-    background-color: lightseagreen;
+    background-color: white;
+}
+
+
+/* For smaller laptop screens */
+/* Removes photo from products table section */
+@media only screen and (max-width: 1440px) {
+    #products-photo {
+        display: none;
+    }
+
+    #table-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
 }
