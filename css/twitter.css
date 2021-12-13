@@ -21,7 +21,7 @@ body, html {
     font-family: Arial, Ubuntu, sans-serif;
 }
 
-/* HEADER */
+/* HEADER SECTION */
 
 header {
     background-image: url("https://picsum.photos/1200/300");
@@ -62,7 +62,7 @@ a {
     color: var(--link-color);
 }
 
-/* PROFILE */
+/* PROFILE SECTION */
 
 .profile {
     background: var(--light-bg);
@@ -100,22 +100,22 @@ a {
 .profile-details {
     float: left;
     margin: 0 .5em;
-    width: calc(25% - 3em);
+    width: calc(25% - 1em);
 }
+
+/* MEDIA SECTION (TIMELINE AND FOLLOW SECTIONS)*/
 
 .timeline {
     float: left;
     margin:  0 .5em;
-    width: calc(50% - .5em);
+    width: calc(50% - 1em);
 }
 
 .who-to-follow{
     float: right;
     margin:  0 .5em;
-    width: calc(25% - .5em);
+    width: calc(25% - 1em);
 }
-
-/* MEDIA */
 
 .media {
     width: 100%;
@@ -136,6 +136,7 @@ a {
     float: right;
 }
 
+/* BUTTONS */
 .btn {
     border: 1px solid var(--main-link-color);
     color: var(--main-link-color);
@@ -148,6 +149,9 @@ a {
     font-size: 1.3em;
     padding: 10px;
 }
+
+/* UTILITIES */
+
 .img-circle {
     border-radius: 100%;
     border: 4px solid var(--light-bg);
