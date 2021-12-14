@@ -28,6 +28,7 @@ nav a:hover {
     display: flex;
     flex-basis: 300px;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .nav-logo-section {
