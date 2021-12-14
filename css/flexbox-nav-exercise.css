@@ -7,11 +7,18 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: lightgray;
+}
+
 nav {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: lightgray;
+    position: fixed;
+    top: 0;
 }
 
 nav a {
@@ -49,5 +56,79 @@ nav a:hover {
 .placeholder-icon {
     width: 15px;
     height: 15px;
+    background-color: white;
+}
+
+/* MAIN */
+main {
+    height: 94vh;
+    background-color: darkorange;
+}
+
+/* FOOTER */
+.upper-footer-section {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
     background-color: black;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#contact-number {
+    color: lightgray;
+    padding: 10px 30px;
+    margin: 0 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.upper-footer-section button {
+    background-color: darkorange;
+    border: none;
+    color: black;
+    padding: 15px 30px;
+    margin: 25px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.upper-footer-section button:hover {
+    background-color: lightsalmon;
+}
+
+.lower-footer-section{
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightgray;
+    color: black;
+}
+
+.lower-footer-section a {
+    text-decoration: none;
+    color: black;
+}
+
+.lower-footer-section a:hover {
+    color: blue;
+}
+
+.footer-section-nav {
+    display: flex;
+}
+
+.footer-section-nav > .footer-item {
+    padding: 0 10px;
+}
+
+.footer-icons {
+    display: flex;
+}
+
+.footer-icons img {
+    padding: 0 10px;
 }
