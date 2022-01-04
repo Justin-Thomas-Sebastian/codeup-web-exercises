@@ -8,12 +8,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css">
 
     <title>Order Pizza</title>
 </head>
 <body>
 
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Pizza World</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Order Online <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Menu</a>
+                </li>
+            </ul>
 
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Zip code" aria-label="Search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search stores near you!</button>
+            </form>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
+        <span class="navbar-text">
+             <a class="nav-link" href="#">Sign Up</a>
+        </span>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="fluid-container my-4">
+        <div id="pizza-container" class="jumbotron jumbotron-fluid text-center p-0">
+            <img id="jumbotron-image" src="assets/pizza.png" alt="Pizza">
+            <div id="pizza-text-container">
+                <h1 class="display-4 te">Welcome to Pizza World!</h1>
+            </div>
+        </div>
+
+        <h2>Build your own pizza!</h2>
+    </main>
 
 
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->

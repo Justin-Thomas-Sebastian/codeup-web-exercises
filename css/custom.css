@@ -1,0 +1,16 @@
+#pizza-container {
+    position: relative;
+}
+
+#jumbotron-image {
+    width: 100%;
+}
+
+#pizza-text-container {
+    position: absolute;
+    bottom: 40%;
+    background-color: white;
+    width: 100%;
+    opacity: 0.7;
+}
+
