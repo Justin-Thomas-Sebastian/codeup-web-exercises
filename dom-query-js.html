@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>DOM: Query and Modify</title>
@@ -16,14 +16,15 @@
 </ul>
 <h2 id="sub-header">Hello Again.</h2>
 <p class="sub-paragraph">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-    aliquip ex ea commodo consequat. Duis aute irure dolor in
-    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-    culpa qui officia deserunt mollit anim id est laborum.
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    A delectus fuga incidunt, ipsa minima natus quidem quod sint tempore temporibus?
 </p>
+
+<button id="h1-btn">Switch h1</button>
+<button id="h2-btn">Switch h2 color</button>
+<button id="li-btn">Switch li colors</button>
+<button id="dbid1-btn">Switch dbid-1 color</button>
+<button id="p-btn">Switch paragraph</button>
 
 <script>
     (function() {
@@ -32,35 +33,76 @@
         let mainHeader = document.getElementById("main-header");
 
         // TODO: Set inner html of mainHeader to "JavaScript is Cool"
-        mainHeader.innerHTML = "JavaScript is Cool";
+        let h1Btn = document.getElementById("h1-btn");
+
+        h1Btn.addEventListener("click", function(){
+            if(mainHeader.textContent !== "JavaScript is Cool"){
+                mainHeader.textContent = "JavaScript is Cool";
+            } else {
+                mainHeader.textContent = "Hello World!";
+            }
+        });
 
         // TODO: Uncomment the next line and get the sub header element by id
         let subHeader = document.getElementById("sub-header");
 
         // TODO: Set the text color of subHeader to blue
-        subHeader.style.color = "blue";
+        let h2Btn = document.getElementById("h2-btn");
+
+        h2Btn.addEventListener("click", function(){
+            if(subHeader.style.color !== "blue"){
+                subHeader.style.color = "blue";
+            } else {
+                subHeader.style.color = "black";
+            }
+        });
 
         // TODO: Uncomment the next line and get all list items
         let listItems = document.getElementsByTagName("li");
 
         // TODO: Set text color on every other list item to grey
-        for(let i = 0; i < listItems.length; i += 2){
-            listItems[i].style.color = "grey";
-        }
+        let liBtn = document.getElementById("li-btn");
+        liBtn.addEventListener("click", function(){
+            for(let i = 0; i < listItems.length; i += 2){
+                if(listItems[i].style.color !== "grey"){
+                    listItems[i].style.color = "grey";
+                } else {
+                    listItems[i].style.color = "black";
+                }
+            }
+        });
 
         // TODO: Set text color of li with dbid = 1 to blue
-        for(let i = 0; i < listItems.length; i++){
-            if(listItems[i].getAttribute("data-dbid") === "1"){
-                listItems[i].style.color = "blue";
-                break;
+        let dbId1 = document.getElementById("dbid1-btn");
+
+        dbId1.addEventListener("click", function(){
+            for(let i = 0; i < listItems.length; i++){
+                if(listItems[i].getAttribute("data-dbid") === "1"){
+
+                    if(listItems[i].style.color !== "blue"){
+                        listItems[i].style.color = "blue";
+                    } else {
+                        listItems[i].style.color = "black";
+                    }
+                    break;
+                }
             }
-        }
+        });
 
         // TODO: Uncomment the next line and get all elements with class name sub-paragraph
         let subParagraphs = document.getElementsByClassName("sub-paragraph");
 
         // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
-        subParagraphs[0].innerText = "Mission Accomplished!";
+        let paraBtn = document.getElementById("p-btn");
+
+        paraBtn.addEventListener("click", function(){
+            if(subParagraphs[0].innerText !== "Mission Accomplished!"){
+                subParagraphs[0].innerText = "Mission Accomplished!";
+            } else {
+                subParagraphs[0].innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. " +
+                    "A delectus fuga incidunt, ipsa minima natus quidem quod sint tempore temporibus?";
+            }
+        });
     })();
 </script>
 </body>
