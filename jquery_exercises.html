@@ -27,15 +27,16 @@
 </div>
 
 <script src="js/jquery-2.2.4.js"></script>
-<script src="js/jquery-exercises.js"></script>
 <script>
     "use strict";
+
+    /******************* SELECTORS *******************/
     //alert("The dom has finished loading.");
 
-    let header = $("#my-header")
-    let paragraph = $("#my-paragraph");
-    let list = $("#my-list");
-    let container = $("#my-container");
+    // let header = $("#my-header")
+    // let paragraph = $("#my-paragraph");
+    // let list = $("#my-list");
+    // let container = $("#my-container");
 
     // // PART 1
     // alert(header.text());
@@ -54,7 +55,37 @@
     // $("li").css("background-color", "yellow");
 
     // PART 4
-    $("h1, p, li").css("background-color", "yellow");
+    // $("h1, p, li").css("background-color", "yellow");
+
+    /******************* MOUSE EVENTS *******************/
+
+    // toggles h1 between red and white background color
+    $("h1").click(function(){
+        if($(this).css("background-color") === "rgba(0, 0, 0, 0)") {  // rgba(0, 0, 0, 0) is default
+            $(this).css("background-color", "red");
+        } else {
+            $(this).css("background-color", "rgba(0, 0, 0, 0)");
+        }
+    });
+
+    // toggles p between 16px and 18px font size
+    $("p").dblclick(function(){
+        if($(this).css("font-size") === "16px") {
+            $(this).css("font-size" , "18px");
+        } else {
+            $(this).css("font-size" , "16px");
+        }
+    });
+
+    // toggles li between red and black text color
+    $("li").hover(
+        function() {  // mouse enter
+            $(this).css("color", "red");
+        },
+        function() {  // mouse leave
+            $(this).css("color", "black");
+        }
+    );
 </script>
 </body>
 </html>
