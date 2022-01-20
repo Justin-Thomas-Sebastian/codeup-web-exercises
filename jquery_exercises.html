@@ -6,13 +6,55 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>jQuery Exercises</title>
+    <style>
+        .codeup {
+            border: 1px solid red;
+        }
+    </style>
 </head>
 <body>
 
+<div id="my-container" class="custom-container">
+    <h1 id="my-header" class="custom-header">Hello</h1>
+    <p id="my-paragraph" class="custom-paragraph">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, quis.
+    </p>
+    <ul id="my-list" class="custom-list">
+        <li>isa</li>
+        <li>dalawa</li>
+        <li>tatlo</li>
+    </ul>
+</div>
 
 <script src="js/jquery-2.2.4.js"></script>
+<script src="js/jquery-exercises.js"></script>
 <script>
-    alert("The dom has finished loading.");
+    "use strict";
+    //alert("The dom has finished loading.");
+
+    let header = $("#my-header")
+    let paragraph = $("#my-paragraph");
+    let list = $("#my-list");
+    let container = $("#my-container");
+
+    // // PART 1
+    // alert(header.text());
+    // alert(paragraph.text());
+
+    // PART 2
+    // header.addClass("codeup");
+    // paragraph.addClass("codeup");
+    // list.addClass("codeup");
+    // list.removeClass("codeup");
+
+    // PART 3
+    // $("li").css("font-size", "20px");
+    // $("h1").css("background-color", "yellow");
+    // $("p").css("background-color", "yellow");
+    // $("li").css("background-color", "yellow");
+
+    // PART 4
+    $("h1, p, li").css("background-color", "yellow");
 </script>
 </body>
 </html>
