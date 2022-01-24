@@ -14,55 +14,161 @@
         .highlighted {
             background-color: yellow;
         }
+
+        .bolded {
+            font-weight: bold;
+        }
+
+        .blue-font {
+            color: blue;
+        }
+
+        #frame-section {
+            display: flex;
+        }
+
+        .frame {
+            height: 320px;
+            width: 320px;
+            margin: 20px;
+        }
+
+        #frame1{
+            background-image: url("assets/faq1.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #frame2{
+            background-image: url("assets/faq2.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #frame3{
+            background-image: url("assets/faq3.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
     </style>
 </head>
 <body>
+<!--    <dl>-->
+<!--        <dt>Park1</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
+<!--        <dt>Park2</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-    <dl>
-        <dt>Park1</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park3</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park2</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park4</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park3</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park5</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park4</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park6</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park5</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park7</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park6</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park8</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park7</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park9</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
 
-        <dt>Park8</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+<!--        <dt>Park10</dt>-->
+<!--        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>-->
+<!--    </dl>-->
 
-        <dt>Park9</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+    <h3>Park 1</h3>
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+        <li>fact 4</li>
+    </ul>
 
-        <dt>Park10</dt>
-        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
-    </dl>
+    <h3>Park 2</h3>
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+        <li>fact 4</li>
+    </ul>
+
+    <h3>Park 3</h3>
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+        <li>fact 4</li>
+    </ul>
+
+    <button id="highlight-last">Highlight Last Fact</button>
+
+    <section id="frame-section">
+        <div class="frame-container">
+            <div class="frame" id="frame1"></div>
+            <button id="frame-button-1">1</button>
+        </div>
+
+        <div class="frame-container">
+            <div class="frame" id="frame2"></div>
+            <button id="frame-button-2">2</button>
+        </div>
+
+        <div class="frame-container">
+            <div class="frame" id="frame3"></div>
+            <button id="frame-button-3">3</button>
+        </div>
+    </section>
+
 <script src="js/jquery-2.2.4.js"></script>
 <script>
 
-    let toggleButton = $("<button></button>").text("Show/Hide Park Descriptions"); // create new button
-    $("body").prepend(toggleButton);  // add new button to document
+    // // PART 1
+    // let toggleButton = $("<button></button>").text("Show/Hide Park Descriptions"); // create new button
+    // $("body").prepend(toggleButton);  // add new button to document
+    //
+    // $("button").click(function(){  // add toggle function to button. hides/shows dd's
+    //     $("dd").toggleClass("invisible");
+    // });
+    //
+    // $("dt").click(function(){  // highlights dt's
+    //     $(this).toggleClass("highlighted");
+    // });
 
-    $("button").click(function(){  // add toggle function to button. hides/shows dd's
-        $("dd").toggleClass("invisible");
+    // PART 2
+    $("#highlight-last").click(function(){
+       $("ul").children("li:nth-child(4)").toggleClass("highlighted");
     });
 
-    $("dt").click(function(){  // highlights dt's
-        $(this).toggleClass("highlighted");
+    $("h3").click(function(){
+        $(this).next().children().toggleClass("bolded");
     });
+
+    $("li").click(function(){
+       $(this).parent().children("li:nth-child(1)").toggleClass("blue-font");
+    });
+
+    // BONUS   **** WORK IN PROGRESS *******
+    $("#frame-button-1").click(function(){
+
+        let frame2Image = $("#frame2").css("background-image");
+        let frame3Image = $("#frame3").css("background-image");
+        $("#frame1").css("background-image", frame3Image);
+        $("#frame3").css("background-image", frame2Image);
+    });
+
 </script>
 </body>
 </html>
