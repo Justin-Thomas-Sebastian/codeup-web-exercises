@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery faq exercises</title>
+    <style>
+        .invisible {
+            visibility: hidden;
+        }
+
+        .highlighted {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+
+    <dl>
+        <dt>Park1</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park2</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park3</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park4</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park5</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park6</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park7</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park8</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park9</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+
+        <dt>Park10</dt>
+        <dd class="invisible">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laborum.</dd>
+    </dl>
+<script src="js/jquery-2.2.4.js"></script>
+<script>
+
+    let toggleButton = $("<button></button>").text("Show/Hide Park Descriptions"); // create new button
+    $("body").prepend(toggleButton);  // add new button to document
+
+    $("button").click(function(){  // add toggle function to button. hides/shows dd's
+        $("dd").toggleClass("invisible");
+    });
+
+    $("dt").click(function(){  // highlights dt's
+        $(this).toggleClass("highlighted");
+    });
+</script>
+</body>
+</html>

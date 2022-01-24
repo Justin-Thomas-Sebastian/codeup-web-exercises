@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Konami Code</title>
 </head>
@@ -10,9 +10,27 @@
 <script>
     "use strict";
 
-    $(document).keyup(function(event){
-        console.log(event.keyCode);
-    });
+    /************* WORK IN PROGRESS **********/
+
+    let gameLoop = true ;
+    let tries = 100;
+
+    while(gameLoop){
+
+        let userInputArray = [];
+
+        $("document").keyup(function(e){
+            userInputArray.push(e.keyCode);
+            console.log("array is: " + userInputArray);
+            tries--;
+        });
+
+        if(tries === 0){
+            console.log("out of tries. exiting...");
+            gameLoop = false;
+        }
+    }
+
 </script>
 </body>
 </html>
