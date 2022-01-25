@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Store</title>
+</head>
+<body>
+
+<h1>My Tool Store</h1>
+
+<table id="products">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Categories</th>
+    </tr>
+    </thead>
+    <tbody id="insertProducts">
+
+    </tbody>
+</table>
+
+<button id="refresh-btn">Refresh</button>
+
+<script src="js/jquery-2.2.4.js"></script>
+
+<script>
+    "use strict";
+
+    // TODO: Create an AJAX GET request for the file under data/inventory.json
+    let tableData = $.ajax("data/inventory.json");
+
+    // TODO: Take the data from inventory.json and append it to the products table
+    //       HINT: Your data should come back as a JSON object; use console.log() to inspect
+    //             its contents and fields
+    //       HINT: You will want to target #insertProducts for your new HTML elements
+
+    function populateTable(data){
+        tableData.done(function (data, status) {
+            for (let obj of data) {
+                $("#insertProducts").append(
+                    "<tr>" +
+                    "<td>" + obj.title + "</td>" +
+                    "<td>" + obj.quantity + "</td>" +
+                    "<td>" + obj.price + "</td>" +
+                    "<td>" + obj.categories + "</td>" +
+                    "</tr>")
+            }
+        }).fail(function (jqXhr, status, error){
+            console.log("Failed to retrieve data.");
+            console.log("Error: " + error);
+        });
+    }
+
+    populateTable(tableData) // initial
+
+    /*****  REFRESH ******/
+    $("#refresh-btn").click(function(){
+        populateTable(tableData);
+        console.log("clicked");
+    });
+</script>
+
+</body>
+</html>
