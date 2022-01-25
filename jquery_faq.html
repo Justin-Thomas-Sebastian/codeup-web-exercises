@@ -115,6 +115,8 @@
 
     <button id="highlight-last">Highlight Last Fact</button>
 
+    <h1 style="text-align: center">BONUS</h1>
+
     <section id="frame-section">
         <div class="frame-container">
             <div class="frame" id="frame1"></div>
@@ -135,7 +137,7 @@
 <script src="js/jquery-2.2.4.js"></script>
 <script>
 
-    // // PART 1
+    /*******************  PART 1 ATTRIBUTES/CSS  ******************/
     // let toggleButton = $("<button></button>").text("Show/Hide Park Descriptions"); // create new button
     // $("body").prepend(toggleButton);  // add new button to document
     //
@@ -147,7 +149,8 @@
     //     $(this).toggleClass("highlighted");
     // });
 
-    // PART 2
+    /*******************  PART 2 TRAVERSING  ******************/
+
     $("#highlight-last").click(function(){
        $("ul").children("li:nth-child(4)").toggleClass("highlighted");
     });
@@ -160,15 +163,32 @@
        $(this).parent().children("li:nth-child(1)").toggleClass("blue-font");
     });
 
-    // BONUS   **** WORK IN PROGRESS *******
-    $("#frame-button-1").click(function(){
+    /*******************  BONUS  ******************/
 
-        let frame2Image = $("#frame2").css("background-image");
-        let frame3Image = $("#frame3").css("background-image");
+    let frame1Image = $("#frame1").css("background-image");
+    let frame2Image = $("#frame2").css("background-image");
+    let frame3Image = $("#frame3").css("background-image");
+
+    // The left frame swaps to the right and takes the image from the frame in the center.
+    $("#frame-button-1").click(function(){
         $("#frame1").css("background-image", frame3Image);
         $("#frame3").css("background-image", frame2Image);
     });
 
+    //The center frame swaps randomly to either the left or right.
+    $("#frame-button-2").click(function(){
+        let imageArr = [frame1Image, frame3Image];
+        let min = 0;
+        let max = 1;
+        let random = Math.floor(Math.random() * (max - min + 1) + min);
+        $("#frame2").css("background-image", imageArr[random]);
+    });
+
+    //The right frame swaps to the left and takes the image from the frame in the center.
+    $("#frame-button-3").click(function(){
+        $("#frame1").css("background-image", frame2Image);
+        $("#frame3").css("background-image", frame1Image);
+    });
 </script>
 </body>
 </html>
