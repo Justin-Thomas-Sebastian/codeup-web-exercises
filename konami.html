@@ -10,26 +10,20 @@
 <script>
     "use strict";
 
-    /************* WORK IN PROGRESS **********/
+    let userInputArray = [];
+    let textArray = "";
+    let konami = "38,38,40,40,37,39,37,39,66,65";
 
-    let gameLoop = true ;
-    let tries = 100;
+    $(document).keyup(function(e){
+        userInputArray.push(e.keyCode);
+        textArray = userInputArray.toString();
 
-    while(gameLoop){
-
-        let userInputArray = [];
-
-        $("document").keyup(function(e){
-            userInputArray.push(e.keyCode);
-            console.log("array is: " + userInputArray);
-            tries--;
-        });
-
-        if(tries === 0){
-            console.log("out of tries. exiting...");
-            gameLoop = false;
+        if(textArray.includes(konami)){
+            alert("gained lives");
+            userInputArray = [];
+            textArray = "";
         }
-    }
+    });
 
 </script>
 </body>
