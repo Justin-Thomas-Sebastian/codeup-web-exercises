@@ -57,6 +57,12 @@
 
     /*****  REFRESH/ WORK IN PROGRESS ******/
 
+    $("#refresh-btn").click(function(){
+        let newTableData = $.ajax("data/inventory.json");
+        $("#insertProducts").empty();
+        populateTable(newTableData);
+    });
+
 </script>
 
 </body>

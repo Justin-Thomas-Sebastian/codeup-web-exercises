@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Blog Exercise</title>
+</head>
+<body>
+<div id="posts">
+    <!--        <h3>TEST</h3>-->
+    <!--        <h4>DATE</h4>-->
+    <!--        <p>CONTENT</p>-->
+    <!--        <small>CATEGORIES</small>-->
+</div>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script>
+    let blogData = $.ajax("data/blog.json");
+
+    function populateBlog(data) {
+        blogData.done(function (data, status) {
+
+            // start from end of blog.json, so most recent blog post appears first in html
+            for(let i = data.length - 1; i >= 0; i--){
+                $("#posts").append(
+                    `<h3> ${data[i].title} </h3>
+                     <h4> ${data[i].date} </h4>
+                     <p> ${data[i].content} </p>
+                     <small> ${data[i].categories} </small>`
+                )
+            }
+        }).fail(function (jqXhr, status, error) {
+            console.log("Failed to retrieve data.");
+            console.log("Error: " + error);
+        });
+    }
+
+    populateBlog(blogData);
+</script>
+</body>
+</html>
