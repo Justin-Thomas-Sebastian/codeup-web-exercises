@@ -13,8 +13,18 @@
           crossorigin="anonymous">
     <title>Ajax Blog Exercise</title>
 </head>
-<body>
-<div id="posts"></div>
+<body class="bg-light">
+    <!--  HEADER -->
+    <header class="fluid-container text-left py-4 bg-warning text-light border border-dark">
+        <div class="container">
+            <h1 class="ml-5 text-dark">Blog Title Here</h1>
+        </div>
+    </header>
+
+    <!-- BLOG POSTS -->
+    <section class="container">
+        <div id="posts" class="text-dark"></div>
+    </section>
 
 <script src="js/jquery-2.2.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
@@ -25,15 +35,16 @@
     let blogData = $.ajax("data/blog.json");
 
     function populateBlog() {
-        blogData.done(function (data, status) {
+        blogData.done(function (data) {
 
             // start from end of blog.json, so most recent blog post appears first in html
             for(let i = data.length - 1; i >= 0; i--){
                 $("#posts").append(
-                    `<h3> ${data[i].title} </h3>
-                     <h4> ${data[i].date} </h4>
-                     <p> ${data[i].content} </p>
-                     <small> ${data[i].categories} </small>`
+                    `<h3 class="mt-5 mb-4"> ${data[i].title} </h3>
+                     <h5 class="mb-3"> ${data[i].date} </h5>
+                     <p class="p-3"> ${data[i].content} </p>
+                     <small>Categories: ${data[i].categories} </small>
+                     <hr class="bg-light">`
                 )
             }
         }).fail(function (jqXhr, status, error) {
