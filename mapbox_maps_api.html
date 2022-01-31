@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>First Mapbox Map</title>
     <!-- Mapbox CSS -->
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'/>
     <!-- Custom CSS -->
     <style>
-        #map{
+        #map {
             /* the width and height may be set to any size */
             width: 80%;
             height: 700px;
@@ -34,13 +34,15 @@
 <!-- Find location based on address -->
 <label for="physical-address">Address: </label>
 <input type="text" name="physical-address" id="physical-address">
-<button id="physical-address-btn">Search</button><br>
+<button id="physical-address-btn">Search</button>
+<br>
 
 <!-- Find location based on coordinates -->
 <label for="long-input">Coordinates: </label>
 <input type="text" name="long-input" id="long-input" placeholder="longitude (x-axis)">
 <input type="text" name="lat-input" id="lat-input" placeholder="latitude (y-axis)">
-<button id="coordinates-btn">Search</button><span id="coordinates-result"></span><br>
+<button id="coordinates-btn">Search</button>
+<span id="coordinates-result"></span><br>
 
 <!-- The HTML element that serves as the Mapbox container -->
 <div id="map-container" class="show">
@@ -62,6 +64,8 @@
 <!-- Geocoding Utility -->
 <script src="js/mapbox-geocoder-utils.js"></script>
 
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
 <!-- Custom JS -->
 <script>
     mapboxgl.accessToken = MAPBOX_KEY;
@@ -70,7 +74,7 @@
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
-        zoom: 5,
+        zoom: 10,
         center: [-106.40705, 31.938732] // long, lat
     });
 
@@ -80,19 +84,19 @@
     // array of restaurant objects
     let favoriteRestaurants = [
         {
-            name:"Carl's Jr",
+            name: "Carl's Jr",
             long: -106.40705,
             lat: 31.938732,
             img: "assets/burger.jpg"
         },
         {
-            name:"Taco Bell",
+            name: "Taco Bell",
             long: -106.406983,
             lat: 31.9383519,
             img: "assets/burrito.jpg"
         },
         {
-            name:"Wingstop",
+            name: "Wingstop",
             long: -106.4069347,
             lat: 31.9395,
             img: "assets/chicken.jpg"
@@ -103,8 +107,8 @@
     let markers = [];
 
     // loop through fave restaurants and create marker and popup for each iteration
-    function populateMarkers(locations){
-        locations.forEach(function(location){
+    function populateMarkers(locations) {
+        locations.forEach(function (location) {
             //create new marker from array
             let marker = new mapboxgl.Marker()
                 .setLngLat([location.long, location.lat])
@@ -124,14 +128,14 @@
     populateMarkers(favoriteRestaurants);
 
     // Change zoom based on selection
-    $("#zoom-levels").change(function(){
+    $("#zoom-levels").change(function () {
         map.setZoom(Number($(this).val()));
     });
 
     // Center map based on address
-    $("#physical-address-btn").click(function(){
+    $("#physical-address-btn").click(function () {
         let search = $("#physical-address").val();
-        geocode(search, MAPBOX_KEY).then(function(results){
+        geocode(search, MAPBOX_KEY).then(function (results) {
             map.setZoom(10);
             map.setCenter(results);
 
@@ -145,13 +149,13 @@
     });
 
     // Center map based on x/y coordinates with marker/popup displaying retrieved address
-    $("#coordinates-btn").click(function(){
+    $("#coordinates-btn").click(function () {
         let searchCoordinates = {
             lng: $("#long-input").val(),
             lat: $("#lat-input").val()
         };
 
-        reverseGeocode(searchCoordinates, MAPBOX_KEY).then(function(results){
+        reverseGeocode(searchCoordinates, MAPBOX_KEY).then(function (results) {
             map.setZoom(10);
             map.setCenter(searchCoordinates);
 
@@ -172,18 +176,58 @@
     });
 
     // Hides / Shows all map markers
-    $("#hide-markers-btn").click(function(){
-        if($("#map-container").hasClass("show")){  // has .show
-            markers.forEach(function(marker){
+    $("#hide-markers-btn").click(function () {
+        if ($("#map-container").hasClass("show")) {  // has .show
+            markers.forEach(function (marker) {
                 marker.remove();
             });
             $("#map-container").toggleClass("show");
 
-         } else { // does not have .show
-            populateMarkers(favoriteRestaurants);
+        } else {                                 // does not have .show
+            markers.forEach(function (marker) {
+                marker.addTo(map);
+            });
             $("#map-container").toggleClass("show");
         }
     });
+
+    // Bouncy animation
+    const constLng = -106.4087698;
+    const originLat = 31.9379507;
+    const destinationtLat = 31.9382;
+
+    let bouncy = new mapboxgl.Marker()
+        .setLngLat([constLng, originLat]);
+         bouncy.addTo(map);
+
+    // Define the animation.
+    function animateMarker() {
+
+        let currentLng = bouncy.getLngLat().lng;
+        let currentLat = bouncy.getLngLat().lat;
+
+        let delay = 200; // delay time in milliseconds
+
+        let timeoutId = setTimeout(function () {
+            if(currentLat != destinationtLat){
+                bouncy.setLngLat([currentLng, destinationtLat]);
+            } else {
+                bouncy.setLngLat([currentLng, originLat])
+            }
+        }, delay);
+
+        /*
+        Ensure the marker is added to the map.
+        This is safe to call if it's already added.
+        */
+        bouncy.addTo(map);
+
+        // Request the next frame of the animation.
+        requestAnimationFrame(animateMarker);
+    }
+
+    // Start the animation.
+    requestAnimationFrame(animateMarker);
 </script>
 </body>
 </html>
