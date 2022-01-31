@@ -7,19 +7,48 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
     <!-- Custom CSS -->
     <style>
-        #map {
+        #map{
             /* the width and height may be set to any size */
-            width: 100%;
+            width: 80%;
             height: 700px;
         }
+
+        .show {
+
+        }
     </style>
+
 </head>
 <body>
 
-<h1>My First Mapbox Map!</h1>
+<h1>Favorite Restaurants</h1>
+
+<!-- Adjust Zoom -->
+<label for="zoom-levels">Zoom</label>
+<select name="zoom-levels" id="zoom-levels">
+    <option value="5">5</option>
+    <option value="15" selected>15</option>
+    <option value=20>20</option>
+</select><br>
+
+<!-- Find location based on address -->
+<label for="physical-address">Address: </label>
+<input type="text" name="physical-address" id="physical-address">
+<button id="physical-address-btn">Search</button><br>
+
+<!-- Find location based on coordinates -->
+<label for="long-input">Coordinates: </label>
+<input type="text" name="long-input" id="long-input" placeholder="longitude (x-axis)">
+<input type="text" name="lat-input" id="lat-input" placeholder="latitude (y-axis)">
+<button id="coordinates-btn">Search</button><span id="coordinates-result"></span><br>
 
 <!-- The HTML element that serves as the Mapbox container -->
-<div id='map'></div>
+<div id="map-container" class="show">
+    <div id="map"></div>
+</div>
+
+<!-- Hides all markers -->
+<button id="hide-markers-btn">Hide Markers</button>
 
 <!-- jQuery -->
 <script src="js/jquery-2.2.4.js"></script>
@@ -30,6 +59,9 @@
 <!-- Keys -->
 <script src="js/keys.js"></script>
 
+<!-- Geocoding Utility -->
+<script src="js/mapbox-geocoder-utils.js"></script>
+
 <!-- Custom JS -->
 <script>
     mapboxgl.accessToken = MAPBOX_KEY;
@@ -38,46 +70,120 @@
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
-        zoom: 15,
-        center: [-106.40705, 31.938732]
+        zoom: 5,
+        center: [-106.40705, 31.938732] // long, lat
     });
 
     // change zoom property
-    map.setZoom(17);
+    map.setZoom(15);
 
     // array of restaurant objects
     let favoriteRestaurants = [
         {
             name:"Carl's Jr",
             long: -106.40705,
-            lat: 31.938732
+            lat: 31.938732,
+            img: "assets/burger.jpg"
         },
         {
             name:"Taco Bell",
             long: -106.406983,
-            lat: 31.9383519
+            lat: 31.9383519,
+            img: "assets/burrito.jpg"
         },
         {
             name:"Wingstop",
             long: -106.4069347,
-            lat: 31.9395
+            lat: 31.9395,
+            img: "assets/chicken.jpg"
         }
     ];
 
+    // array that holds all markers
+    let markers = [];
+
     // loop through fave restaurants and create marker and popup for each iteration
-    favoriteRestaurants.forEach(function(restaurant){
-        //create new marker from array
-        let marker = new mapboxgl.Marker()
-            .setLngLat([restaurant.long, restaurant.lat])
-            .addTo(map);
+    function populateMarkers(locations){
+        locations.forEach(function(location){
+            //create new marker from array
+            let marker = new mapboxgl.Marker()
+                .setLngLat([location.long, location.lat])
+                .addTo(map);
 
-        //create new popup from array and set to current restaurant
-        let popup = new mapboxgl.Popup()
-            .setHTML(`<p> ${restaurant.name}</p>`);
+            // add marker to global array
+            markers.push(marker);
 
-        marker.setPopup(popup);
+            //create new popup from array and set to current restaurant
+            let popup = new mapboxgl.Popup()
+                .setHTML(`<p> ${location.name}</p><img src=${location.img}>`);
+
+            marker.setPopup(popup);
+        });
+    }
+
+    populateMarkers(favoriteRestaurants);
+
+    // Change zoom based on selection
+    $("#zoom-levels").change(function(){
+        map.setZoom(Number($(this).val()));
     });
 
+    // Center map based on address
+    $("#physical-address-btn").click(function(){
+        let search = $("#physical-address").val();
+        geocode(search, MAPBOX_KEY).then(function(results){
+            map.setZoom(10);
+            map.setCenter(results);
+
+            let marker = new mapboxgl.Marker()
+                .setLngLat([results[0], results[1]])
+                .addTo(map);
+
+            // add to global markers array
+            markers.push(marker);
+        });
+    });
+
+    // Center map based on x/y coordinates with marker/popup displaying retrieved address
+    $("#coordinates-btn").click(function(){
+        let searchCoordinates = {
+            lng: $("#long-input").val(),
+            lat: $("#lat-input").val()
+        };
+
+        reverseGeocode(searchCoordinates, MAPBOX_KEY).then(function(results){
+            map.setZoom(10);
+            map.setCenter(searchCoordinates);
+
+            $("#coordinates-result").text(` Retrieved address: ${results}`);
+
+            let marker = new mapboxgl.Marker()
+                .setLngLat([searchCoordinates.lng, searchCoordinates.lat])
+                .addTo(map);
+
+            let popup = new mapboxgl.Popup()
+                .setHTML(`<p> Address Retrieved: ${results}</p>`);
+
+            marker.setPopup(popup);
+
+            // add to global markers array
+            markers.push(marker);
+        });
+    });
+
+    // Hides / Shows all map markers
+    $("#hide-markers-btn").click(function(){
+        if($("#map-container").hasClass("show")){  // has .show
+            markers.forEach(function(marker){
+                marker.remove();
+            });
+            $("#map-container").toggleClass("show");
+
+         } else { // does not have .show
+            populateMarkers(favoriteRestaurants);
+            $("#map-container").toggleClass("show");
+        }
+    });
 </script>
 </body>
 </html>
