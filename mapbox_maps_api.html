@@ -27,15 +27,57 @@
 <!-- Mapbox JS -->
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 
+<!-- Keys -->
+<script src="js/keys.js"></script>
+
 <!-- Custom JS -->
 <script>
-    mapboxgl.accessToken = YOUR_API_TOKEN_HERE;
-    var map = new mapboxgl.Map({
+    mapboxgl.accessToken = MAPBOX_KEY;
+
+    // create map
+    let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
-        zoom: 10,
-        center: [-98.4916, 29.4252]
+        zoom: 15,
+        center: [-106.40705, 31.938732]
     });
+
+    // change zoom property
+    map.setZoom(17);
+
+    // array of restaurant objects
+    let favoriteRestaurants = [
+        {
+            name:"Carl's Jr",
+            long: -106.40705,
+            lat: 31.938732
+        },
+        {
+            name:"Taco Bell",
+            long: -106.406983,
+            lat: 31.9383519
+        },
+        {
+            name:"Wingstop",
+            long: -106.4069347,
+            lat: 31.9395
+        }
+    ];
+
+    // loop through fave restaurants and create marker and popup for each iteration
+    favoriteRestaurants.forEach(function(restaurant){
+        //create new marker from array
+        let marker = new mapboxgl.Marker()
+            .setLngLat([restaurant.long, restaurant.lat])
+            .addTo(map);
+
+        //create new popup from array and set to current restaurant
+        let popup = new mapboxgl.Popup()
+            .setHTML(`<p> ${restaurant.name}</p>`);
+
+        marker.setPopup(popup);
+    });
+
 </script>
 </body>
 </html>
