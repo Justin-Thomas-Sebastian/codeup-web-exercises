@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#map {
+    height: 500px;
+}
+
+.current-weather-container {
+    width: 400px;
+}
+
+.primary-header {
+    height: 100px;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1300px;
+    }
+}

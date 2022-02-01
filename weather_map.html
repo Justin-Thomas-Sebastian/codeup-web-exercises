@@ -12,27 +12,44 @@
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
           crossorigin="anonymous">
 
-    <style>
-        .current-weather-container {
-            width: 400px;
-        }
+    <!-- Mapbox CSS -->
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
 
-        .main-header {
-            height: 60px;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/weather_map.css">
 
     <title>Weather Map Project</title>
 </head>
+
 <body>
-
-<header class="fluid-container bg-dark main-header">
-
+<!-- HEADER -->
+<header class="fluid-container primary-header bg-dark">
 </header>
 
-<main class="container">
-    <div class="current-weather-container card mt-5 mx-auto" id="current-weather">
-        <img class="card-img-top" src="" alt="" >
+<!-- SEARCH -->
+<section class="container mt-3">
+    <div class="py-3 ml-4">
+        <div class="form-group">
+            <label for="location-search-input">Location: </label>
+            <input type="text" id="location-search-input" name="location-search-input" class="form-control-sm">
+            <button class="btn btn-primary btn-sm" id="search-btn">Search</button>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN -->
+<main id="main-container" class="container d-flex">
+
+    <!-- CURRENT WEATHER CARD -->
+    <div class="current-weather-container card" id="current-weather">
+
+        <!-- CARD HEADER -->
+        <div class="card-header d-flex justify-content-between">
+            <span id="current-date"></span>
+            <span id="current-time"></span>
+        </div>
+
+        <!-- CARD BODY -->
         <div class="card-body">
             <h4 id="city-name" class="card-title text-center"></h4>
             <p id="weather-desc" class="text-center"></p>
@@ -43,13 +60,18 @@
             </div>
         </div>
 
+        <!-- CARD LIST -->
         <ul class="list-group list-group-flush" id="current-weather-details">
-            <li class="list-group-item">1</li>
-            <li class="list-group-item">2</li>
-            <li class="list-group-item">3</li>
-            <li class="list-group-item">4</li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
         </ul>
     </div>
+
+    <!-- MAP -->
+    <div id="map" class="flex-grow-1 ml-3"></div>
 </main>
 
 <!-- jQuery -->
