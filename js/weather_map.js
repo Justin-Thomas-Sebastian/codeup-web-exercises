@@ -3,19 +3,12 @@
 /**
  * TODOS:
  *
- * 1. 5-day forecast (DONE)
- * 2. Drop pin
- *      2.1. when user drops pin
- *      2.2  grab the pin's coordinates
- *      2.3  update weather (current and 5 day forecast)
- *  3. have location search update 5-day forecast as well (DONE)
- *  4. Update marker location based on new search input
  *  5. Finalize switch cases to change card bg image. Refer to https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
  *  6. Styling
  *
  **/
 
-/***************   PROGRAM EXECUTION  *******************/
+/***************  MAIN  *******************/
 
 // El Paso Coordinates
 const originLong = -106.2005;
@@ -27,7 +20,7 @@ getForecast(originLong, originLat);
 
 /***************   WEATHER MAP SECTION  *******************/
 
-// Get current weather in passed in location string
+// Get current weather in passed in coordinates
 function getCurrentWeather(inputLong, inputLat){
     $.get("http://api.openweathermap.org/data/2.5/weather", {
         APPID: WEATHER_KEY,
@@ -38,6 +31,7 @@ function getCurrentWeather(inputLong, inputLat){
 
         // Card Header / Current Date and Time
         $("#current-date").text(formatUnixDate(result.dt));
+        $("#current-weekday").text("Today");
         $("#current-time").text(formatUnixTime(result.dt));
 
         // Card Body
@@ -96,6 +90,7 @@ function getForecast(inputLong, inputLat){
 function populateForecast(forecastObj,currentDay){
     // CARD HEADER
     $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
+    $(`#forecast-weekday-${currentDay}`).text(weekdays[getDayFromUnixTime(forecastObj.dt)]);
     $(`#forecast-time-${currentDay}`).text(formatUnixTime(forecastObj.dt));
 
     // CARD BODY
@@ -107,8 +102,8 @@ function populateForecast(forecastObj,currentDay){
 
     // CARD LIST
     $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + forecastObj.weather[0].description);
-    $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity);
-    $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed);
+    $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity + "%");
+    $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed + " miles/hr");
     $(`#forecast-details-${currentDay} li:nth-child(4)`).text("Pressure: " + forecastObj.main.pressure);
 }
 
@@ -140,10 +135,13 @@ let map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     zoom: 10,
-    center: [-106.40705, 31.938732] // long, lat  (EL PASO)
+    center: [originLong, originLat] // long, lat  (EL PASO)
 });
 
-// Create a marker and center the map based on given address
+/*****************  EVENTS  **********************/
+
+// Create a marker and center the map based on given location
+// update weather based on new marker
 $("#search-btn").click(function () {
     let search = $("#location-search-input").val();
     geocode(search, MAPBOX_KEY).then(function (results) {
@@ -167,10 +165,10 @@ $("#search-btn").click(function () {
     });
 });
 
-// adds marker on map on click and updates weather
+// on click, adds marker on map
+// updates weather based on new marker
 map.on('click', function(e) {
     let coordinates = e.lngLat;
-    console.log(coordinates);
 
     if(currentMarker.length > 0){
         let removeMarker = currentMarker.pop();
@@ -190,6 +188,7 @@ map.on('click', function(e) {
 /********************  UTILITIES  *****************************/
 
 const unix24Hours = 86400;  // 24 hours in unix time stamp
+const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 // time from unix time stamp
 function formatUnixTime(unixTime) {
@@ -211,6 +210,12 @@ function formatUnixDate(unixTime) {
 
     // Will display date in YY-MM-DD
     return year + "-" + month + "-" + day;
+}
+
+// get weekday (saturday/monday etc..) from unix time stamp
+function getDayFromUnixTime(unixTime) {
+    let date = new Date(unixTime * 1000);
+    return date.getDay();
 }
 
 // return unix time stamp that is 24 hours later
