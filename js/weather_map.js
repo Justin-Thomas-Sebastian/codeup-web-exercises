@@ -15,58 +15,51 @@
  *
  **/
 
-/***************   WEATHER MAP SECTION  *******************/
-
-const unix24Hours = 86400;
-
-function getNextDayUnixTime(unixTime){
-    return Number(unixTime) + unix24Hours;
-}
+/***************   PROGRAM EXECUTION  *******************/
 
 // DEFAULT WEATHER VIEW
 getCurrentWeather("El Paso");
+getForecast("El Paso");
 
-//FORECAST
-// find 24 hours after current
-// find appropriate forecast
-$.get("http://api.openweathermap.org/data/2.5/forecast", {
-    APPID: WEATHER_KEY,
-    q:     "El Paso, US"
-}).done(function(result){
+/***************   WEATHER MAP SECTION  *******************/
 
-    console.log(result.list[0]);
+// Get weather forecast from passed in location string
+function getForecast(search){
+    $.get("http://api.openweathermap.org/data/2.5/forecast", {
+        APPID: WEATHER_KEY,
+        q: search
+    }).done(function(result){
 
-    let currentTime = Date.now();
-    let currentTimeStr = currentTime.toString().slice(0,-3); // remove last three digits to match convention in openweather api
-    let unixTime24HoursFromNow = getNextDayUnixTime(currentTimeStr); // adds 24 hours to current time
-    let dayCount = 1;  // keeps track of how many days we want to forecast
+        console.log(result.list[0]);
 
-    // loop through result list
-    for(let forecastObj of result.list){
+        let currentTime = Date.now();
+        let currentTimeStr = currentTime.toString().slice(0,-3); // remove last three digits to match convention in openweather api
+        let unixTime24HoursFromNow = getNextDayUnixTime(currentTimeStr); // adds 24 hours to current time
+        let dayCount = 1;  // keeps track of how many days we want to forecast
 
-        // console.log(unixTime24HoursFromNow);
-        // console.log(formatUnixDate(unixTime24HoursFromNow));
-        // console.log(formatUnixTime(unixTime24HoursFromNow));
+        // loop through result list
+        for(let forecastObj of result.list){
 
-        if(dayCount === 5){  // should be 5 just testing 1 card for now
-            break;  // exit once we hit 5 days
+            if(dayCount === 5){  // should be 5 just testing 1 card for now
+                break;  // exit once we hit 5 days
+            }
+
+            // find most recent forecast that is closest to 24 hours from now
+            if(forecastObj.dt >= unixTime24HoursFromNow){
+                console.log(formatUnixDate(forecastObj.dt));
+                console.log(formatUnixTime(forecastObj.dt));
+                console.log(" ");
+                unixTime24HoursFromNow = getNextDayUnixTime(unixTime24HoursFromNow);  // next 24 hours
+                populateForecast(forecastObj, dayCount);
+                dayCount++;
+            }
         }
+    }).fail(function(){
+        console.log("Failed to retrive data");
+    });
+}
 
-        if(forecastObj.dt >= unixTime24HoursFromNow){
-            console.log(formatUnixDate(forecastObj.dt));
-            console.log(formatUnixTime(forecastObj.dt));
-            console.log(" ");
-            unixTime24HoursFromNow = getNextDayUnixTime(unixTime24HoursFromNow);  // next 24 hours
-            populateForecast(forecastObj, dayCount);
-            dayCount++;
-        }
-
-        // console.log(formatUnixDate(forecastObj.dt));
-        // console.log(formatUnixTime(forecastObj.dt));
-        // console.log(" ");
-    }
-})
-
+// renders data to forecast cards
 function populateForecast(forecastObj,currentDay){
     // CARD HEADER
     $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
@@ -158,9 +151,12 @@ $("#search-btn").click(function () {
     });
 
     getCurrentWeather(search);  // update current weather card
+    getForecast(search);  // update forecast row
 });
 
 /********************  UTILITIES  *****************************/
+
+const unix24Hours = 86400;  // 24 hours in unix time stamp
 
 // time from unix time stamp
 function formatUnixTime(unixTime) {
@@ -182,4 +178,9 @@ function formatUnixDate(unixTime) {
 
     // Will display date in YY-MM-DD
     return year + "-" + month + "-" + day;
+}
+
+// return unix time stamp that is 24 hours later
+function getNextDayUnixTime(unixTime){
+    return Number(unixTime) + unix24Hours;
 }

@@ -13,13 +13,18 @@
 }
 
 .primary-header {
-    height: 100px;
+    height: 60px;
 }
 
 .weather-forecast-card {
     height: 300px;
     width: 250px;
     border: 1px solid black;
+    font-size: .8em;
+}
+
+footer {
+    height: 60px;
 }
 
 @media (min-width: 1200px) {
