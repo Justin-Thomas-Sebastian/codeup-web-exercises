@@ -16,6 +16,12 @@
     height: 100px;
 }
 
+.weather-forecast-card {
+    height: 300px;
+    width: 250px;
+    border: 1px solid black;
+}
+
 @media (min-width: 1200px) {
     .container{
         max-width: 1300px;

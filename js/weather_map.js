@@ -17,16 +17,71 @@
 
 /***************   WEATHER MAP SECTION  *******************/
 
+const unix24Hours = 86400;
+
+function getNextDayUnixTime(unixTime){
+    return Number(unixTime) + unix24Hours;
+}
+
 // DEFAULT WEATHER VIEW
 getCurrentWeather("El Paso");
 
-// FORECAST
-// $.get("http://api.openweathermap.org/data/2.5/forecast", {
-//     APPID: WEATHER_KEY,
-//     q:     "El Paso, US"
-// }).done(function(result){
-//     console.log(result.list);
-// })
+//FORECAST
+// find 24 hours after current
+// find appropriate forecast
+$.get("http://api.openweathermap.org/data/2.5/forecast", {
+    APPID: WEATHER_KEY,
+    q:     "El Paso, US"
+}).done(function(result){
+
+    console.log(result.list[0]);
+
+    let currentTime = Date.now();
+    let currentTimeStr = currentTime.toString().slice(0,-3); // remove last three digits to match convention in openweather api
+    let unixTime24HoursFromNow = getNextDayUnixTime(currentTimeStr); // adds 24 hours to current time
+    let dayCount = 1;  // keeps track of how many days we want to forecast
+
+    // loop through result list
+    for(let forecastObj of result.list){
+
+        // console.log(unixTime24HoursFromNow);
+        // console.log(formatUnixDate(unixTime24HoursFromNow));
+        // console.log(formatUnixTime(unixTime24HoursFromNow));
+
+        if(dayCount === 5){  // should be 5 just testing 1 card for now
+            break;  // exit once we hit 5 days
+        }
+
+        if(forecastObj.dt >= unixTime24HoursFromNow){
+            console.log(formatUnixDate(forecastObj.dt));
+            console.log(formatUnixTime(forecastObj.dt));
+            console.log(" ");
+            unixTime24HoursFromNow = getNextDayUnixTime(unixTime24HoursFromNow);  // next 24 hours
+            populateForecast(forecastObj, dayCount);
+            dayCount++;
+        }
+
+        // console.log(formatUnixDate(forecastObj.dt));
+        // console.log(formatUnixTime(forecastObj.dt));
+        // console.log(" ");
+    }
+})
+
+function populateForecast(forecastObj,currentDay){
+    // CARD HEADER
+    $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
+    $(`#forecast-time-${currentDay}`).text(formatUnixTime(forecastObj.dt));
+
+    // CARD BODY
+    $(`#forecast-high-${currentDay}`).text(forecastObj.main.temp_max);
+    $(`#forecast-low-${currentDay}`).text(forecastObj.main.temp_min)
+
+    // CARD LIST
+    $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + forecastObj.weather[0].description);
+    $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity);
+    $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed);
+    $(`#forecast-details-${currentDay} li:nth-child(4)`).text("Pressure: " + forecastObj.main.pressure);
+}
 
 // Get current weather in passed in location string
 function getCurrentWeather(search){
@@ -56,6 +111,8 @@ function getCurrentWeather(search){
 
         // Render card body bg image
         renderWeatherBackgroundImage(result.weather[0].main);
+
+        // console.log(result);
     });
 }
 
