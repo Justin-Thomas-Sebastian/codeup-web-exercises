@@ -46,17 +46,17 @@ map.on("click", function(e) {
     getForecast(coordinates.lng, coordinates.lat);
 });
 
-// Increases mapbox zoom by 1
+// Increases mapbox zoom by 1 and center on current marker
 $("#zoom-in-btn").click(function(){
-    if(map.getZoom() === 22) { return };
+    if(map.getZoom() === 22) { return }
     map.setZoom(map.getZoom() + 1);
     let coordinates = currentMarker[0]._lngLat;
     map.setCenter([coordinates.lng,coordinates.lat]);
 });
 
-// Decreases mapbox zoom by 1
+// Decreases mapbox zoom by 1 and center on current marker
 $("#zoom-out-btn").click(function(){
-    if(map.getZoom() === 0) { return };
+    if(map.getZoom() === 0) { return }
     map.setZoom(map.getZoom() - 1);
     let coordinates = currentMarker[0]._lngLat;
     map.setCenter([coordinates.lng,coordinates.lat]);
@@ -178,14 +178,14 @@ function renderWeatherBackgroundImage(weather){
 
 /*****************  MAPBOX FUNCTIONS  **********************/
 
-// Initalize mapbox map
+// Initialize mapbox map
 function initializeMap(key, long, lat){
     mapboxgl.accessToken = key;
     return new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
         zoom: 10,
-        center: [long, lat] // long, lat  (EL PASO)
+        center: [long, lat]
     });
 }
 
@@ -208,7 +208,7 @@ function updateMarker(long, lat){
 const UNIX_TIMESTAMP_24_HOURS = 86400;  // 24 hours in unix time stamp
 const WEEKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-// time from unix time stamp
+// Return unix time stamp in regular time format
 function formatUnixTime(unixTime) {
     let date = new Date(unixTime * 1000);
     let hours = date.getHours();
@@ -219,7 +219,7 @@ function formatUnixTime(unixTime) {
     return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 }
 
-// date from unix time stamp
+// Return unix time stamp in regular date format
 function formatUnixDate(unixTime) {
     let date = new Date(unixTime * 1000);
     let year = date.getFullYear();
@@ -230,18 +230,18 @@ function formatUnixDate(unixTime) {
     return year + "-" + month + "-" + day;
 }
 
-// get weekday (saturday/monday etc..) from unix time stamp
+// Get weekday (saturday/monday etc..) from unix time stamp
 function getDayFromUnixTime(unixTime) {
     let date = new Date(unixTime * 1000);
     return date.getDay();
 }
 
-// return unix time stamp that is 24 hours later
+// Return unix time stamp that is 24 hours later from original time stamp
 function getNextDayUnixTime(unixTime){
     return Number(unixTime) + UNIX_TIMESTAMP_24_HOURS;
 }
 
-// capitalize every first letter in each word
+// Capitalize every first letter in each word
 function capitalizeFirstLetter(str){
     let strArr = str.split(" ");
     for(let i = 0; i < strArr.length; i++){

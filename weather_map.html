@@ -23,29 +23,28 @@
 
 <body>
 <!-- HEADER -->
-<header class="fluid-container primary-header bg-dark">
-    <div class="container d-flex justify-content-between align-items-center px-5 h-100">
-        <div class="text-light"><a href="#">Weather App</a></div>
-        <div class="text-light">
+<header id="header-container" class="fluid-container primary-header bg-dark">
+    <div class="container d-flex justify-content-between align-items-center h-100">
+        <!-- LOGO-->
+        <div class="text-light w-25"><a href="#">Weather App</a></div>
+        <!-- SEARCH -->
+        <div class="pt-3 d-flex justify-content-center w-25 mt-1">
+            <div class="form-group">
+                <label for="location-search-input" class="text-light">Location: </label>
+                <input type="text" id="location-search-input" name="location-search-input" class="form-control-sm">
+                <button class="btn btn-primary btn-sm" id="search-btn">Search</button>
+            </div>
+        </div>
+        <!-- CURRENT CITY-->
+        <div class="text-light w-25 d-flex justify-content-end align-items-center">
             <img src="assets/location.png" alt="location icon">
             <span id="current-city"></span>
         </div>
     </div>
 </header>
 
-<!-- SEARCH -->
-<section class="container mt-4 mb-1">
-    <div class="ml-4 d-flex justify-content-center">
-        <div class="form-group">
-            <label for="location-search-input">Location: </label>
-            <input type="text" id="location-search-input" name="location-search-input" class="form-control-sm">
-            <button class="btn btn-primary btn-sm" id="search-btn">Search</button>
-        </div>
-    </div>
-</section>
-
 <!-- ZOOM IN/OUT BUTTONS -->
-<section class="container d-flex justify-content-end mb-2">
+<section class="container d-flex justify-content-end mt-3 mb-2">
     <div id="zoom-buttons">
         <a id="zoom-in-btn"><i class="fas fa-search-plus fa-2x"></i></a>
         <a id="zoom-out-btn"><i class="fas fa-search-minus fa-2x"></i></a>
