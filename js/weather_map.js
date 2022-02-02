@@ -3,8 +3,9 @@
 /**
  * TODOS:
  *
- *  5. Finalize switch cases to change card bg image. Refer to https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
- *  6. Styling
+ *  1. Finalize switch cases to change card bg image. Refer to https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+ *  2. Make responsive
+ *  3. Styling
  *
  **/
 
@@ -79,7 +80,7 @@ function findNextDayForecast(result){
             populateForecast(forecastObj[forecastObj.length - 1], dayCount); // last forecast
         }
         if(forecastObj[i].dt >= unixTime24HoursFromNow){ // find closest dt to current time
-            populateForecast(forecastObj[i-1], dayCount);
+            populateForecast(forecastObj[i - 1], dayCount);
             unixTime24HoursFromNow = getNextDayUnixTime(unixTime24HoursFromNow);  // next 24 hours
             dayCount++;
         }
