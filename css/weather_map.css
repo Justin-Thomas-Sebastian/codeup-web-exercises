@@ -7,6 +7,29 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: lightgray;
+    text-decoration: none;
+}
+
+#current-city:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#zoom-buttons a{
+    color: #2c2c2c;
+}
+
+#zoom-buttons a:hover{
+    color: #676767;
+    cursor: pointer;
+}
+
 #map {
     height: 500px;
 }

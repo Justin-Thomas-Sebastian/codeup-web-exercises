@@ -12,14 +12,63 @@
 /**********************   MAIN   ***************************/
 
 // El Paso Coordinates
-const originLong = -106.44915607264488;
-const originLat = 31.770367133639994;
+const DEFAULT_LONGITUDE = -106.44915607264488;
+const DEFAULT_LATITUDE = 31.770367133639994;
+let currentMarker = [];   // holds current marker. only contains one marker at a time
 
 // Default Weather View (El Paso)
-getCurrentWeather(originLong, originLat);
-getForecast(originLong, originLat);
+getCurrentWeather(DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
+getForecast(DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
+let map = initializeMap(MAPBOX_KEY, DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
+updateMarker(DEFAULT_LONGITUDE,DEFAULT_LATITUDE); // default marker
 
-/***************   WEATHER MAP SECTION  *******************/
+/***********************  EVENTS  *************************/
+
+// Create a marker and center the map based on given location
+// update weather based on new marker
+$("#search-btn").click(function () {
+    let search = $("#location-search-input").val();
+    geocode(search, MAPBOX_KEY).then(function (results) {
+        map.setZoom(10);
+        map.setCenter(results);
+        updateMarker(results[0], results[1]);
+        getCurrentWeather(results[0], results[1]);  // update current weather card
+        getForecast(results[0], results[1]);  // update forecast row
+    });
+});
+
+// on click, adds marker on map
+// updates weather based on new marker
+map.on("click", function(e) {
+    let coordinates = e.lngLat;
+    updateMarker(coordinates.lng, coordinates.lat);
+    getCurrentWeather(coordinates.lng, coordinates.lat);
+    getForecast(coordinates.lng, coordinates.lat);
+});
+
+// Increases mapbox zoom by 1
+$("#zoom-in-btn").click(function(){
+    if(map.getZoom() === 22) { return };
+    map.setZoom(map.getZoom() + 1);
+    let coordinates = currentMarker[0]._lngLat;
+    map.setCenter([coordinates.lng,coordinates.lat]);
+});
+
+// Decreases mapbox zoom by 1
+$("#zoom-out-btn").click(function(){
+    if(map.getZoom() === 0) { return };
+    map.setZoom(map.getZoom() - 1);
+    let coordinates = currentMarker[0]._lngLat;
+    map.setCenter([coordinates.lng,coordinates.lat]);
+});
+
+// Center map on current marker when current location text is clicked
+$("#current-city").click(function(){
+    let coordinates = currentMarker[0]._lngLat;
+    map.setCenter([coordinates.lng,coordinates.lat]);
+});
+
+/***************   WEATHER FUNCTIONS  *******************/
 
 // Get current weather in passed in coordinates
 // Populate current weather card with data received
@@ -47,7 +96,7 @@ function populateCurrentWeather(result){
     $("#low-temp").text("L: " + result.main.temp_min.toFixed(0) + "\u2109");
 
     // Card List
-    $("#current-weather-details li:nth-child(1)").text("Description: " + result.weather[0].description);
+    $("#current-weather-details li:nth-child(1)").text("Description: " + capitalizeFirstLetter(result.weather[0].description));
     $("#current-weather-details li:nth-child(2)").text("Feels like: " + result.main.feels_like + " \u2109");
     $("#current-weather-details li:nth-child(3)").text("Humidity: " + result.main.humidity + "%");
     $("#current-weather-details li:nth-child(4)").text("Wind Speed: " + result.wind.speed + " miles/hour");
@@ -55,6 +104,9 @@ function populateCurrentWeather(result){
 
     // Render card body bg image
     renderWeatherBackgroundImage(result.weather[0].main);
+
+    // Update current city display
+    $("#current-city").text(result.name);
 }
 
 // Get 5-day weather forecast of passed in coordinates
@@ -69,9 +121,8 @@ function getForecast(inputLong, inputLat){
 
 // Find forecasts that are 24hours, 48hours, 72hours etc... after current time
 function findNextDayForecast(result){
-    let currentTime = Date.now();
-    let currentTimeStr = currentTime.toString().slice(0,-3); // remove last three digits to match convention in openweather api
-    let unixTime24HoursFromNow = getNextDayUnixTime(currentTimeStr); // adds 24 hours to current time
+    let currentTime = Date.now() / 1000; // remove last three digits to match convention in openweather api
+    let unixTime24HoursFromNow = getNextDayUnixTime(currentTime); // adds 24 hours to current time
     let forecastObj = result.list;
     let dayCount = 1;
 
@@ -91,18 +142,17 @@ function findNextDayForecast(result){
 function populateForecast(forecastObj,currentDay){
     // CARD HEADER
     $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
-    $(`#forecast-weekday-${currentDay}`).text(weekdays[getDayFromUnixTime(forecastObj.dt)]);
+    $(`#forecast-weekday-${currentDay}`).text(WEEKDAYS[getDayFromUnixTime(forecastObj.dt)]);
     $(`#forecast-time-${currentDay}`).text(formatUnixTime(forecastObj.dt));
 
     // CARD BODY
-    $(`#forecast-high-${currentDay}`).text("H: " + forecastObj.main.temp_max + "\u2109");
+    $(`#forecast-high-${currentDay}`).text("H: " + forecastObj.main.temp + "\u2109");
     $(`#forecast-low-${currentDay}`).text("L: " + forecastObj.main.temp_min + "\u2109");
-
     let icon = forecastObj.weather[0].icon;
     $(`#forecast-icon-${currentDay}`).attr("src",`http://openweathermap.org/img/w/${icon}.png`);
 
     // CARD LIST
-    $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + forecastObj.weather[0].description);
+    $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + capitalizeFirstLetter(forecastObj.weather[0].description));
     $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity + "%");
     $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed + " miles/hr");
     $(`#forecast-details-${currentDay} li:nth-child(4)`).text("Pressure: " + forecastObj.main.pressure);
@@ -126,20 +176,18 @@ function renderWeatherBackgroundImage(weather){
     }
 }
 
-/*****************  MAPBOX SECTION  **********************/
+/*****************  MAPBOX FUNCTIONS  **********************/
 
-mapboxgl.accessToken = MAPBOX_KEY;
-let currentMarker = [];  // holds current marker. only contains one marker at a time
-
-// create map
-let map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    zoom: 10,
-    center: [originLong, originLat] // long, lat  (EL PASO)
-});
-
-updateMarker(originLong,originLat); // default marker
+// Initalize mapbox map
+function initializeMap(key, long, lat){
+    mapboxgl.accessToken = key;
+    return new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        zoom: 10,
+        center: [long, lat] // long, lat  (EL PASO)
+    });
+}
 
 // updates location of marker
 function updateMarker(long, lat){
@@ -147,7 +195,7 @@ function updateMarker(long, lat){
         let removeMarker = currentMarker.pop();
         removeMarker.remove();
     }
-    let newMarker = new mapboxgl.Marker()
+    let newMarker = new mapboxgl.Marker({"color":"red"})
         .setLngLat([long, lat])
         .addTo(map);
 
@@ -155,34 +203,10 @@ function updateMarker(long, lat){
     currentMarker.push(newMarker);
 }
 
-/***********************  EVENTS  *************************/
-
-// Create a marker and center the map based on given location
-// update weather based on new marker
-$("#search-btn").click(function () {
-    let search = $("#location-search-input").val();
-    geocode(search, MAPBOX_KEY).then(function (results) {
-        map.setZoom(10);
-        map.setCenter(results);
-        updateMarker(results[0], results[1]);
-        getCurrentWeather(results[0], results[1]);  // update current weather card
-        getForecast(results[0], results[1]);  // update forecast row
-    });
-});
-
-// on click, adds marker on map
-// updates weather based on new marker
-map.on('click', function(e) {
-    let coordinates = e.lngLat;
-    updateMarker(coordinates.lng, coordinates.lat);
-    getCurrentWeather(coordinates.lng, coordinates.lat);
-    getForecast(coordinates.lng, coordinates.lat);
-});
-
 /********************  UTILITIES  *****************************/
 
-const unix24Hours = 86400;  // 24 hours in unix time stamp
-const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const UNIX_TIMESTAMP_24_HOURS = 86400;  // 24 hours in unix time stamp
+const WEEKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 // time from unix time stamp
 function formatUnixTime(unixTime) {
@@ -214,5 +238,14 @@ function getDayFromUnixTime(unixTime) {
 
 // return unix time stamp that is 24 hours later
 function getNextDayUnixTime(unixTime){
-    return Number(unixTime) + unix24Hours;
+    return Number(unixTime) + UNIX_TIMESTAMP_24_HOURS;
+}
+
+// capitalize every first letter in each word
+function capitalizeFirstLetter(str){
+    let strArr = str.split(" ");
+    for(let i = 0; i < strArr.length; i++){
+        strArr[i] = strArr[i][0].toUpperCase() + strArr[i].substring(1);
+    }
+    return strArr.join(" ")
 }
