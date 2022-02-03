@@ -1,13 +1,5 @@
 "use strict"
 
-/**
- * TODOS:
- *
- *  1. Make responsive
- *  2. Styling
- *
- **/
-
 /**********************   MAIN   ***************************/
 
 // El Paso Coordinates
@@ -19,21 +11,20 @@ let currentMarker = [];   // holds current marker. only contains one marker at a
 getCurrentWeather(DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
 getForecast(DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
 let map = initializeMap(MAPBOX_KEY, DEFAULT_LONGITUDE, DEFAULT_LATITUDE);
+let geocoder = initializeGeocoder(map);
 updateMarker(DEFAULT_LONGITUDE,DEFAULT_LATITUDE); // default marker
 
 /***********************  EVENTS  *************************/
 
-// Create a marker and center the map based on given location
-// update weather based on new marker
-$("#search-btn").click(function () {
-    let search = $("#location-search-input").val();
-    geocode(search, MAPBOX_KEY).then(function (results) {
-        map.setZoom(10);
-        map.setCenter(results);
-        updateMarker(results[0], results[1]);
-        getCurrentWeather(results[0], results[1]);  // update current weather card
-        getForecast(results[0], results[1]);  // update forecast row
-    });
+// After pressing enter on geocoder search
+// center map and create marker on result coordinates
+geocoder.on("result", function(event) {
+    let newCoordinates = event.result.geometry.coordinates;
+    updateMarker(newCoordinates[0], newCoordinates[1]);
+    getCurrentWeather(newCoordinates[0], newCoordinates[1]);
+    getForecast(newCoordinates[0], newCoordinates[1]);
+    centerMapOnMarker();
+    map.setZoom(10);
 });
 
 // on click, adds marker on map
@@ -74,7 +65,8 @@ function getCurrentWeather(inputLong, inputLat) {
         lon: inputLong,
         lat: inputLat,
         units: "imperial"
-    }).done((result) => populateCurrentWeather(result));
+    }).done((result) => populateCurrentWeather(result))
+      .fail( () => { console.log("Failed to retrieve data") });
 }
 
 // Populate current weather card with data received
@@ -109,7 +101,8 @@ function getForecast(inputLong, inputLat){
         lon: inputLong,
         lat: inputLat,
         units: "imperial"
-    }).done((result) => findNextDayForecast(result));
+    }).done((result) => findNextDayForecast(result))
+      .fail( () => { console.log("Failed to retrieve data") });
 }
 
 // Find forecasts that are 24hours, 48hours, 72hours etc... after current time
@@ -206,6 +199,19 @@ function initializeMap(key, long, lat){
         zoom: 10,
         center: [long, lat]
     });
+}
+
+// Initialize mapbox geocoder
+function initializeGeocoder(map){
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        marker: false,
+        flyTo: false
+    });
+
+    $("#geocoder").append(geocoder.onAdd(map));
+    return geocoder;
 }
 
 // updates location of marker
