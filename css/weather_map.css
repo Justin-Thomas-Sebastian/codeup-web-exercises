@@ -7,10 +7,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-/*body {*/
-/*    background-color: whitesmoke;*/
-/*}*/
-
 header a {
     color: white;
 }
@@ -42,6 +38,10 @@ header a:hover {
     width: 400px;
 }
 
+.current-weather-container .card-body {
+    border-bottom: 4px solid black;
+}
+
 .primary-header {
     height: 60px;
 }
@@ -63,7 +63,9 @@ header a:hover {
 
 .list-group li {
     background-color: #f1eeee;
+    border:none;
 }
+
 .col {
     padding: 0;
 }
