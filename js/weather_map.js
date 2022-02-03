@@ -3,9 +3,8 @@
 /**
  * TODOS:
  *
- *  1. Finalize switch cases to change card bg image. Refer to https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
- *  2. Make responsive
- *  3. Styling
+ *  1. Make responsive
+ *  2. Styling
  *
  **/
 
@@ -83,30 +82,27 @@ function getCurrentWeather(inputLong, inputLat) {
 
 // Populate current weather card with data received
 function populateCurrentWeather(result){
-    // Card Header / Current Date and Time
+    $("#current-city").text(result.name);  // Update current city display
+
+    // Current Weather Card
     $("#current-date").text(formatUnixDate(result.dt));
     $("#current-weekday").text("Today");
     $("#current-time").text(formatUnixTime(result.dt));
 
-    // Card Body
+    // Current Weather Card Body
     $("#city-name").text(result.name);
     $("#weather-desc").text(result.weather[0].main);
     $("#current-temp").text(result.main.temp.toFixed(0) + " \u2109");
     $("#high-temp").text("H: " + result.main.temp_max.toFixed(0) + "\u2109");
     $("#low-temp").text("L: " + result.main.temp_min.toFixed(0) + "\u2109");
+    renderWeatherBackgroundImage(result.weather[0].main);  // Render card body bg image
 
-    // Card List
+    // Current Weather Card List
     $("#current-weather-details li:nth-child(1)").text("Description: " + capitalizeFirstLetter(result.weather[0].description));
     $("#current-weather-details li:nth-child(2)").text("Feels like: " + result.main.feels_like + " \u2109");
     $("#current-weather-details li:nth-child(3)").text("Humidity: " + result.main.humidity + "%");
     $("#current-weather-details li:nth-child(4)").text("Wind Speed: " + result.wind.speed + " miles/hour");
     $("#current-weather-details li:nth-child(5)").text("Pressure: " + result.main.pressure);
-
-    // Render card body bg image
-    renderWeatherBackgroundImage(result.weather[0].main);
-
-    // Update current city display
-    $("#current-city").text(result.name);
 }
 
 // Get 5-day weather forecast of passed in coordinates
@@ -140,18 +136,18 @@ function findNextDayForecast(result){
 
 // Populate forecast cards with passed in coordinates
 function populateForecast(forecastObj,currentDay){
-    // CARD HEADER
+    // Forecast Card Header
     $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
     $(`#forecast-weekday-${currentDay}`).text(WEEKDAYS[getDayFromUnixTime(forecastObj.dt)]);
     $(`#forecast-time-${currentDay}`).text(formatUnixTime(forecastObj.dt));
 
-    // CARD BODY
+    // Forecast Card Body
     $(`#forecast-high-${currentDay}`).text("H: " + forecastObj.main.temp + "\u2109");
     $(`#forecast-low-${currentDay}`).text("L: " + forecastObj.main.temp_min + "\u2109");
     let icon = forecastObj.weather[0].icon;
     $(`#forecast-icon-${currentDay}`).attr("src",`http://openweathermap.org/img/w/${icon}.png`);
 
-    // CARD LIST
+    // Forecast Card List
     $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + capitalizeFirstLetter(forecastObj.weather[0].description));
     $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity + "%");
     $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed + " miles/hr");
@@ -163,12 +159,38 @@ function renderWeatherBackgroundImage(weather){
     let cardBodyBg = $("#current-weather .card-body");
     switch(weather){
         case "Clouds":
-            cardBodyBg.css("background-image", "url(../assets/cloudy.jpg)");
+            cardBodyBg.css("background-image", "url(../assets/clouds.jpg)");
             cardBodyBg.css("color", "black");
             break;
         case "Clear":
             cardBodyBg.css("background-image", "url(../assets/clear.jpg)");
             cardBodyBg.css("color", "white");
+            break;
+        case "Snow":
+            cardBodyBg.css("background-image", "url(../assets/snow.jpg)");
+            cardBodyBg.css("color", "white");
+            break;
+        case "Drizzle":
+            cardBodyBg.css("background-image", "url(../assets/drizzle.jpg)");
+            cardBodyBg.css("color", "white");
+            break;
+        case "Rain":
+            cardBodyBg.css("background-image", "url(../assets/rain.jpg)");
+            cardBodyBg.css("color", "white");
+            break;
+        case "Thunderstorm":
+            cardBodyBg.css("background-image", "url(../assets/thunderstorm.jpg)");
+            cardBodyBg.css("color", "black");
+            break;
+        case "Mist":
+        case "Smoke":
+        case "Haze":
+        case "Dust":
+        case "Fog":
+        case "Sand":
+        case "Ash":
+            cardBodyBg.css("background-image", "url(../assets/mist.jpg)");
+            cardBodyBg.css("color", "black");
             break;
         default:
             cardBodyBg.css("background-image", "");
