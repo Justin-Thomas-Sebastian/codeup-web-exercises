@@ -49,22 +49,19 @@ map.on("click", function(e) {
 $("#zoom-in-btn").click(function(){
     if(map.getZoom() === 22) { return }
     map.setZoom(map.getZoom() + 1);
-    let coordinates = currentMarker[0]._lngLat;
-    map.setCenter([coordinates.lng,coordinates.lat]);
+    centerMapOnMarker();
 });
 
 // Decreases mapbox zoom by 1 and center on current marker
 $("#zoom-out-btn").click(function(){
     if(map.getZoom() === 0) { return }
     map.setZoom(map.getZoom() - 1);
-    let coordinates = currentMarker[0]._lngLat;
-    map.setCenter([coordinates.lng,coordinates.lat]);
+    centerMapOnMarker();
 });
 
 // Center map on current marker when current location text is clicked
 $("#current-city").click(function(){
-    let coordinates = currentMarker[0]._lngLat;
-    map.setCenter([coordinates.lng,coordinates.lat]);
+    centerMapOnMarker();
 });
 
 /***************   WEATHER FUNCTIONS  *******************/
@@ -84,7 +81,7 @@ function getCurrentWeather(inputLong, inputLat) {
 function populateCurrentWeather(result){
     $("#current-city").text(result.name);  // Update current city display
 
-    // Current Weather Card
+    // Current Weather Card Header
     $("#current-date").text(formatUnixDate(result.dt));
     $("#current-weekday").text("Today");
     $("#current-time").text(formatUnixTime(result.dt));
@@ -223,6 +220,12 @@ function updateMarker(long, lat){
 
     // assign as current marker
     currentMarker.push(newMarker);
+}
+
+// centers map on marker
+function centerMapOnMarker(){
+    let coordinates = currentMarker[0]._lngLat;
+    map.setCenter([coordinates.lng,coordinates.lat]);
 }
 
 /********************  UTILITIES  *****************************/
