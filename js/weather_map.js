@@ -96,52 +96,36 @@ function populateCurrentWeather(result){
 
 // Get 5-day weather forecast of passed in coordinates
 function getForecast(inputLong, inputLat){
-    $.get("http://api.openweathermap.org/data/2.5/forecast", {
+    $.get("http://api.openweathermap.org/data/2.5/onecall", {
         APPID: WEATHER_KEY,
         lon: inputLong,
         lat: inputLat,
         units: "imperial"
-    }).done((result) => findNextDayForecast(result))
+    }).done((result) => populateForecast(result))
       .fail( () => { console.log("Failed to retrieve data") });
 }
 
-// Find forecasts that are 24hours, 48hours, 72hours etc... after current time
-function findNextDayForecast(result){
-    let currentTime = Date.now() / 1000; // remove last three digits to match convention in openweather api
-    let unixTime24HoursFromNow = getNextDayUnixTime(currentTime); // adds 24 hours to current time
-    let forecastObj = result.list;
-    let dayCount = 1;
-
-    for(let i = 0; i < forecastObj.length; i++){
-        if(dayCount === 5){
-            populateForecast(forecastObj[forecastObj.length - 1], dayCount); // last forecast
-        }
-        if(forecastObj[i].dt >= unixTime24HoursFromNow){ // find closest dt to current time
-            populateForecast(forecastObj[i - 1], dayCount);
-            unixTime24HoursFromNow = getNextDayUnixTime(unixTime24HoursFromNow);  // next 24 hours
-            dayCount++;
-        }
-    }
-}
-
 // Populate forecast cards with passed in coordinates
-function populateForecast(forecastObj,currentDay){
-    // Forecast Card Header
-    $(`#forecast-date-${currentDay}`).text(formatUnixDate(forecastObj.dt));
-    $(`#forecast-weekday-${currentDay}`).text(WEEKDAYS[getDayFromUnixTime(forecastObj.dt)]);
-    $(`#forecast-time-${currentDay}`).text(formatUnixTime(forecastObj.dt));
+function populateForecast(result){
+    console.log(result);
+    let forecastObj = result.daily;
+    for(let i = 1; i < 6; i++){
+        // Forecast Card Header
+        $(`#forecast-date-${i}`).text(formatUnixDate(forecastObj[i].dt));
+        $(`#forecast-weekday-${i}`).text(WEEKDAYS[getDayFromUnixTime(forecastObj[i].dt)]);
 
-    // Forecast Card Body
-    $(`#forecast-high-${currentDay}`).text("H: " + forecastObj.main.temp + "\u2109");
-    $(`#forecast-low-${currentDay}`).text("L: " + forecastObj.main.temp_min + "\u2109");
-    let icon = forecastObj.weather[0].icon;
-    $(`#forecast-icon-${currentDay}`).attr("src",`http://openweathermap.org/img/w/${icon}.png`);
+        // Forecast Card Body
+        $(`#forecast-high-${i}`).text("H: " + forecastObj[i].temp.max + "\u2109");
+        $(`#forecast-low-${i}`).text("L: " + forecastObj[i].temp.min + "\u2109");
+        let icon = forecastObj[i].weather[0].icon;
+        $(`#forecast-icon-${i}`).attr("src",`http://openweathermap.org/img/w/${icon}.png`);
 
-    // Forecast Card List
-    $(`#forecast-details-${currentDay} li:nth-child(1)`).text("Description: " + capitalizeFirstLetter(forecastObj.weather[0].description));
-    $(`#forecast-details-${currentDay} li:nth-child(2)`).text("Humidity: " + forecastObj.main.humidity + "%");
-    $(`#forecast-details-${currentDay} li:nth-child(3)`).text("Wind Speed: " + forecastObj.wind.speed + " miles/hr");
-    $(`#forecast-details-${currentDay} li:nth-child(4)`).text("Pressure: " + forecastObj.main.pressure);
+        // Forecast Card List
+        $(`#forecast-details-${i} li:nth-child(1)`).text("Description: " + capitalizeFirstLetter(forecastObj[i].weather[0].description));
+        $(`#forecast-details-${i} li:nth-child(2)`).text("Humidity: " + forecastObj[i].humidity + "%");
+        $(`#forecast-details-${i} li:nth-child(3)`).text("Wind Speed: " + forecastObj[i].wind_speed + " miles/hr");
+        $(`#forecast-details-${i} li:nth-child(4)`).text("Pressure: " + forecastObj[i].pressure);
+    }
 }
 
 // Adds appropriate bg image based on weather description
@@ -265,11 +249,6 @@ function formatUnixDate(unixTime) {
 function getDayFromUnixTime(unixTime) {
     let date = new Date(unixTime * 1000);
     return date.getDay();
-}
-
-// Return unix time stamp that is 24 hours later from original time stamp
-function getNextDayUnixTime(unixTime){
-    return Number(unixTime) + UNIX_TIMESTAMP_24_HOURS;
 }
 
 // Capitalize every first letter in each word
