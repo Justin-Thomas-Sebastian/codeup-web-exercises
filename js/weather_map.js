@@ -82,15 +82,13 @@ function populateCurrentWeather(result){
     $("#city-name").text(result.name);
     $("#weather-desc").text(result.weather[0].main);
     $("#current-temp").text(result.main.temp.toFixed(0) + " \u2109");
-    $("#high-temp").text("H: " + result.main.temp_max.toFixed(0) + "\u2109");
-    $("#low-temp").text("L: " + result.main.temp_min.toFixed(0) + "\u2109");
     renderWeatherBackgroundImage(result.weather[0].main);  // Render card body bg image
 
     // Current Weather Card List
     $("#current-weather-details li:nth-child(1)").text("Description: " + capitalizeFirstLetter(result.weather[0].description));
     $("#current-weather-details li:nth-child(2)").text("Feels like: " + result.main.feels_like + " \u2109");
     $("#current-weather-details li:nth-child(3)").text("Humidity: " + result.main.humidity + "%");
-    $("#current-weather-details li:nth-child(4)").text("Wind Speed: " + result.wind.speed + " miles/hour");
+    $("#current-weather-details li:nth-child(4)").text("Wind Speed: " + result.wind.speed + " mph");
     $("#current-weather-details li:nth-child(5)").text("Pressure: " + result.main.pressure);
 }
 
@@ -123,7 +121,7 @@ function populateForecast(result){
         // Forecast Card List
         $(`#forecast-details-${i} li:nth-child(1)`).text("Description: " + capitalizeFirstLetter(forecastObj[i].weather[0].description));
         $(`#forecast-details-${i} li:nth-child(2)`).text("Humidity: " + forecastObj[i].humidity + "%");
-        $(`#forecast-details-${i} li:nth-child(3)`).text("Wind Speed: " + forecastObj[i].wind_speed + " miles/hr");
+        $(`#forecast-details-${i} li:nth-child(3)`).text("Wind Speed: " + forecastObj[i].wind_speed + " mph");
         $(`#forecast-details-${i} li:nth-child(4)`).text("Pressure: " + forecastObj[i].pressure);
     }
 }
@@ -133,28 +131,22 @@ function renderWeatherBackgroundImage(weather){
     let cardBodyBg = $("#current-weather .card-body");
     switch(weather){
         case "Clouds":
-            cardBodyBg.css("background-image", "url(assets/clouds.jpg)");
-            cardBodyBg.css("color", "black");
+            cardBodyBg.css({"background-image": "url(assets/clouds.jpg)", "color": "black"});
             break;
         case "Clear":
-            cardBodyBg.css("background-image", "url(assets/clear.jpg)");
-            cardBodyBg.css("color", "white");
+            cardBodyBg.css({"background-image": "url(assets/clear.jpg)", "color": "white"});
             break;
         case "Snow":
-            cardBodyBg.css("background-image", "url(assets/snow.jpg)");
-            cardBodyBg.css("color", "white");
+            cardBodyBg.css({"background-image": "url(assets/snow.jpg)", "color": "white"});
             break;
         case "Drizzle":
-            cardBodyBg.css("background-image", "url(assets/drizzle.jpg)");
-            cardBodyBg.css("color", "white");
+            cardBodyBg.css({"background-image": "url(assets/drizzle.jpg)", "color": "white"});
             break;
         case "Rain":
-            cardBodyBg.css("background-image", "url(assets/rain.jpg)");
-            cardBodyBg.css("color", "white");
+            cardBodyBg.css({"background-image": "url(assets/rain.jpg)", "color": "white"});
             break;
         case "Thunderstorm":
-            cardBodyBg.css("background-image", "url(assets/thunderstorm.jpg)");
-            cardBodyBg.css("color", "black");
+            cardBodyBg.css({"background-image": "url(assets/thunderstorm.jpg)", "color": "black"});
             break;
         case "Mist":
         case "Smoke":
@@ -163,8 +155,7 @@ function renderWeatherBackgroundImage(weather){
         case "Fog":
         case "Sand":
         case "Ash":
-            cardBodyBg.css("background-image", "url(assets/mist.jpg)");
-            cardBodyBg.css("color", "black");
+            cardBodyBg.css({"background-image": "url(assets/mist.jpg)", "color": "black"});
             break;
         default:
             cardBodyBg.css("background-image", "");

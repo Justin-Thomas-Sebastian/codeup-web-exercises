@@ -24,7 +24,7 @@
 
 <body>
 <!-- HEADER -->
-<header id="header-container" class="fluid-container primary-header bg-dark">
+<header id="header-container" class="fluid-container primary-header bg-dark pb-1">
     <div class="container d-flex justify-content-between align-items-center h-100">
         <!-- LOGO-->
         <div class="text-light w-25"><a href="#">Weather App</a></div>
@@ -64,11 +64,7 @@
         <div class="card-body">
             <h4 id="city-name" class="card-title text-center"></h4>
             <p id="weather-desc" class="text-center"></p>
-            <h2 id="current-temp" class="text-center"></h2>
-            <div class="row text-center w-50 m-auto">
-                <span id="high-temp" class="col-6"></span>
-                <span id="low-temp" class="col-6"></span>
-            </div>
+            <h1 id="current-temp" class="text-center"></h1>
         </div>
         <!-- CARD LIST -->
         <ul class="list-group list-group-flush" id="current-weather-details">
@@ -96,8 +92,8 @@
             <!-- CARD BODY -->
             <div class="card-body">
                 <div class="row text-center m-auto">
-                    <span id="forecast-high-1" class="col-6"></span>
-                    <span id="forecast-low-1" class="col-6"></span>
+                    <span id="forecast-high-1" class="col-6 forecast-high"></span>
+                    <span id="forecast-low-1" class="col-6 forecast-low"></span>
                 </div>
                 <div class="d-flex justify-content-center">
                     <img src="" alt="weather icon" id="forecast-icon-1">
@@ -121,8 +117,8 @@
             <!-- CARD BODY -->
             <div class="card-body">
                 <div class="row text-center m-auto">
-                    <span id="forecast-high-2" class="col-6"></span>
-                    <span id="forecast-low-2" class="col-6"></span>
+                    <span id="forecast-high-2" class="col-6 forecast-high"></span>
+                    <span id="forecast-low-2" class="col-6 forecast-low"></span>
                 </div>
                 <div class="d-flex justify-content-center">
                     <img src="" alt="weather icon" id="forecast-icon-2">
@@ -146,8 +142,8 @@
             <!-- CARD BODY -->
             <div class="card-body">
                 <div class="row text-center m-auto">
-                    <span id="forecast-high-3" class="col-6"></span>
-                    <span id="forecast-low-3" class="col-6"></span>
+                    <span id="forecast-high-3" class="col-6 forecast-high"></span>
+                    <span id="forecast-low-3" class="col-6 forecast-low"></span>
                 </div>
                 <div class="d-flex justify-content-center">
                     <img src="" alt="weather icon" id="forecast-icon-3">
@@ -171,8 +167,8 @@
             <!-- CARD BODY -->
             <div class="card-body">
                 <div class="row text-center m-auto">
-                    <span id="forecast-high-4" class="col-6"></span>
-                    <span id="forecast-low-4" class="col-6"></span>
+                    <span id="forecast-high-4" class="col-6 forecast-high"></span>
+                    <span id="forecast-low-4" class="col-6 forecast-low"></span>
                 </div>
                 <div class="d-flex justify-content-center">
                     <img src="" alt="weather icon" id="forecast-icon-4">
@@ -196,8 +192,8 @@
             <!-- CARD BODY -->
             <div class="card-body">
                 <div class="row text-center m-auto">
-                    <span id="forecast-high-5" class="col-6"></span>
-                    <span id="forecast-low-5" class="col-6"></span>
+                    <span id="forecast-high-5" class="col-6 forecast-high"></span>
+                    <span id="forecast-low-5" class="col-6 forecast-low"></span>
                 </div>
                 <div class="d-flex justify-content-center">
                     <img src="" alt="weather icon" id="forecast-icon-5">
@@ -213,7 +209,7 @@
         </div>
     </div>
 </section>
-<footer class="fluid-container bg-dark"></footer>
+<footer class="fluid-container bg-dark mt-5"></footer>
 
 <!-- jQuery -->
 <script src="js/jquery-2.2.4.js"></script>

@@ -57,11 +57,25 @@ header a:hover {
     color: white;
 }
 
+#current-temp {
+    font-size: 3.5em;
+}
+
 .list-group li {
     background-color: #f1eeee;
 }
 .col {
     padding: 0;
+}
+
+.forecast-high {
+    color: #d35c5c;
+    font-size: 1.1em;
+}
+
+.forecast-low {
+    color: #4c4cce;
+    font-size: 1.1em;
 }
 
 footer {
