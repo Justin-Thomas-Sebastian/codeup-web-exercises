@@ -156,27 +156,27 @@ function renderWeatherBackgroundImage(weather){
     let cardBodyBg = $("#current-weather .card-body");
     switch(weather){
         case "Clouds":
-            cardBodyBg.css("background-image", "url(../assets/clouds.jpg)");
+            cardBodyBg.css("background-image", "url(assets/clouds.jpg)");
             cardBodyBg.css("color", "black");
             break;
         case "Clear":
-            cardBodyBg.css("background-image", "url(../assets/clear.jpg)");
+            cardBodyBg.css("background-image", "url(assets/clear.jpg)");
             cardBodyBg.css("color", "white");
             break;
         case "Snow":
-            cardBodyBg.css("background-image", "url(../assets/snow.jpg)");
+            cardBodyBg.css("background-image", "url(assets/snow.jpg)");
             cardBodyBg.css("color", "white");
             break;
         case "Drizzle":
-            cardBodyBg.css("background-image", "url(../assets/drizzle.jpg)");
+            cardBodyBg.css("background-image", "url(assets/drizzle.jpg)");
             cardBodyBg.css("color", "white");
             break;
         case "Rain":
-            cardBodyBg.css("background-image", "url(../assets/rain.jpg)");
+            cardBodyBg.css("background-image", "url(assets/rain.jpg)");
             cardBodyBg.css("color", "white");
             break;
         case "Thunderstorm":
-            cardBodyBg.css("background-image", "url(../assets/thunderstorm.jpg)");
+            cardBodyBg.css("background-image", "url(assets/thunderstorm.jpg)");
             cardBodyBg.css("color", "black");
             break;
         case "Mist":
@@ -186,7 +186,7 @@ function renderWeatherBackgroundImage(weather){
         case "Fog":
         case "Sand":
         case "Ash":
-            cardBodyBg.css("background-image", "url(../assets/mist.jpg)");
+            cardBodyBg.css("background-image", "url(assets/mist.jpg)");
             cardBodyBg.css("color", "black");
             break;
         default:
