@@ -56,4 +56,5 @@ wait(1000).then((message) => console.log(message));
 wait(5000).then((message) => console.log(message));
 wait(10000).then((message) => console.log(message));
 wait(100).then((message) => console.log(message));
-wait("sdlkfjsdklf").then((message) => console.log(message));
+wait("sdlkfjsdklf").then((message) => console.log(message))
+    .catch((message) => console.log(message));
