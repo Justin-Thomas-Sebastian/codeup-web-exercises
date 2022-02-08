@@ -7,13 +7,13 @@ function getLastCommit(username){
         .then( events => {
             let pushes = events.filter(event => event.type = "PushEvent");
 
-            let latestCommit = pushes.reduce( (latestCommit, current) => {
-                let currentDate = new Date(latestCommit.created_at);
+            let lastCommit = pushes.reduce( (last, current) => {
+                let currentDate = new Date(last.created_at);
                 let nextDate = new Date(current.created_at);
-                return currentDate.getTime() >= nextDate.getTime() ? latestCommit : current;
+                return currentDate.getTime() >= nextDate.getTime() ? last : current;
             }, pushes[0]);
 
-            return new Date(latestCommit.created_at);
+            return new Date(lastCommit.created_at);
         })
         .catch(error => {
            console.log("Error: " + error);
@@ -29,3 +29,24 @@ findCommitBtn.addEventListener("click", () => {
         commitResult.innerText = String(result);
     });
 });
+
+function wait(duration){
+    return new Promise( (resolve, reject) => {
+        setTimeout(() => {
+            if(!isNaN(duration) && duration === 1000) {
+                resolve(`You'll see this after ${duration / 1000} second`);
+            } else if(!isNaN(duration)){
+                resolve(`You'll see this after ${duration / 1000} seconds`);
+            } else {
+                reject("Type error. Enter number in milliseconds.");
+            }
+        }, duration);
+    });
+}
+
+wait(3000).then((message) => console.log(message));
+wait(1000).then((message) => console.log(message));
+wait(5000).then((message) => console.log(message));
+wait(10000).then((message) => console.log(message));
+wait(100).then((message) => console.log(message));
+wait("sdlkfjsdklf").then((message) => console.log(message));
